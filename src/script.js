@@ -1,11 +1,7 @@
 (function () {
   const SOURCES = [
-    {
-      owner: "Elcapitanoe",
-      repo: "Komodo-Build-Prop",
-      label: "Komodo-Build-Prop",
-    },
-    { owner: "Elcapitanoe", repo: "Build-Prop-BETA", label: "Build-Prop-BETA" },
+    { owner: "Elcapitanoe", repo: "Build-Prop-BETA", label: "Elcapitanoe" },
+    { owner: "Pixel-Props", repo: "build.prop", label: "0x11DFE" },
   ];
 
   function getToken() {
@@ -27,25 +23,17 @@
       .replaceAll(">", "&gt;")
       .replaceAll('"', "&quot;")
       .replaceAll("'", "&#39;");
+
   const fmtDate = (s) => {
     try {
       return new Date(s).toLocaleDateString("en-GB", {
         year: "numeric",
-        month: "short",
+        month: "long",
         day: "2-digit",
       });
     } catch {
       return s || "";
     }
-  };
-  const pad2 = (n) => String(n).padStart(2, "0");
-  const tagFromDate = (s) => {
-    const d = new Date(s);
-    if (isNaN(d)) return "";
-    const yy = pad2(d.getFullYear() % 100);
-    const mm = pad2(d.getMonth() + 1);
-    const dd = pad2(d.getDate());
-    return `v${yy}${mm}${dd}`;
   };
 
   function byPublishedDesc(a, b) {
@@ -55,20 +43,17 @@
   }
 
   async function fetchAllReleases(owner, repo) {
-    let page = 1,
-      releases = [];
+    let page = 1;
+    const releases = [];
     while (true) {
-      const res = await gh(
-        `/repos/${owner}/${repo}/releases?per_page=100&page=${page}`
-      );
-      if (!res.ok)
-        throw new Error(`GitHub /releases ${owner}/${repo} ${res.status}`);
+      const res = await gh(`/repos/${owner}/${repo}/releases?per_page=100&page=${page}`);
+      if (!res.ok) throw new Error(`GitHub /releases ${owner}/${repo} ${res.status}`);
       const chunk = await res.json();
-      releases = releases.concat(chunk);
+      releases.push(...chunk);
       const link = res.headers.get("Link") || "";
       if (!link.includes('rel="next"')) break;
       page++;
-      if (page > 10) break;
+      if (page > 10) break; 
     }
     return releases.filter((r) => !r.draft);
   }
@@ -81,12 +66,12 @@
 
   function renderLatestBlock(latestRows) {
     if (!latestRows.length) return `<p class="muted">No releases</p>`;
-    return latestRows
+    const rowsHtml = latestRows
       .map(({ label, latest }) => {
         const pub = latest.published_at || latest.created_at;
-        const tag =
-          tagFromDate(pub) || esc(latest.tag_name || latest.name || "Untitled");
+        const tag = esc(latest.tag_name || latest.name || "Untitled");
         const assets = latest.assets || [];
+        const assetsTotal = assets.reduce((s, a) => s + (a.download_count || 0), 0);
         const assetsHtml = assets.length
           ? `<ul>` +
             assets
@@ -96,50 +81,31 @@
                     a.browser_download_url
                   )}" target="_blank" rel="noopener noreferrer">${esc(
                     a.name
-                  )}</a> <span class="meta">(${
-                    a.download_count ?? 0
-                  }x)</span></li>`
+                  )}</a> <span class="meta">(${a.download_count ?? 0}x)</span></li>`
               )
               .join("") +
             `</ul>`
           : `<p class="muted">No assets</p>`;
         return `
-        <div class="latest">
-          <p class="meta"><strong>${esc(tag)} - ${esc(
-          fmtDate(pub)
-        )}</strong></p>
+        <div class="latest" data-release-downloads="${assetsTotal}">
+          <p class="meta"><strong>${tag} - ${esc(fmtDate(pub))} by <a href="https://github.com/${esc(label)}">${esc(label)}</a></strong></p>
           ${assetsHtml}
-        </div>
-      `;
+          <p class="meta">Total for this release: <strong>${assetsTotal}x</strong></p>
+        </div> <hr class="dash" />`;
       })
       .join("");
-  }
 
-  function renderPreviousAssets(previousRows) {
-    const items = [];
-    for (const { release } of previousRows) {
-      const pub = release.published_at || release.created_at;
-      const tag =
-        tagFromDate(pub) || release.tag_name || release.name || "Untitled";
-      const assets = release.assets || [];
-      for (const a of assets) {
-        items.push(
-          `<li><span class="meta"></span>` +
-            `<a href="${esc(
-              a.browser_download_url
-            )}" target="_blank" rel="noopener noreferrer">${esc(a.name)}</a> ` +
-            `<span class="meta">(${a.download_count ?? 0}x)</span></li>`
-        );
-      }
-    }
-    return items.length
-      ? `<ul>${items.join("")}</ul>`
-      : `<p class="muted">No previous builds</p>`;
+    const grandTotal = latestRows.reduce((s, r) => {
+      const t = (r.latest && r.latest.assets) ? r.latest.assets.reduce((ss, a) => ss + (a.download_count || 0), 0) : 0;
+      return s + t;
+    }, 0);
+
+    return rowsHtml;
   }
 
   async function main() {
     const latestEl = document.getElementById("latestBlock");
-    const prevEl = document.getElementById("previousBlock");
+    if (!latestEl) return console.warn("Element with id 'latestBlock' not found.");
 
     try {
       const datasets = [];
@@ -153,25 +119,29 @@
         .filter((d) => !!d.latest)
         .sort((a, b) => byPublishedDesc(a.latest, b.latest));
 
-      const previousRows = [];
-      for (const d of datasets) {
-        const skipId = d.latest ? d.latest.id : null;
-        for (const rel of d.all) {
-          if (skipId && rel.id === skipId) continue;
-          previousRows.push({ label: d.label, release: rel });
-        }
-      }
+      latestRows.forEach((d) => {
+        const assets = d.latest.assets || [];
+        d.latest._total_downloads = assets.reduce((s, a) => s + (a.download_count || 0), 0);
+      });
 
-      previousRows.sort((a, b) => byPublishedDesc(a.release, b.release));
+      const grandTotal = latestRows.reduce((s, d) => s + (d.latest._total_downloads || 0), 0);
+
+      window.GH_DOWNLOADS = {
+        perRepo: latestRows.map((d) => ({
+          label: d.label,
+          owner: d.owner,
+          repo: d.repo,
+          total: d.latest._total_downloads || 0,
+        })),
+        total: grandTotal,
+      };
+
+      latestEl.dataset.totalDownloads = String(grandTotal);
 
       latestEl.innerHTML = renderLatestBlock(latestRows);
-      prevEl.innerHTML = renderPreviousAssets(previousRows);
     } catch (err) {
       const msg = err && err.message ? err.message : String(err);
-      latestEl.innerHTML = `<div class="err"><strong>Error:</strong> ${esc(
-        msg
-      )}</div>`;
-      prevEl.innerHTML = "";
+      latestEl.innerHTML = `<div class="err"><strong>Error:</strong> ${esc(msg)}</div>`;
     }
   }
 

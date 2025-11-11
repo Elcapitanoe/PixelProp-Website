@@ -11,7 +11,7 @@ a{color:var(--accent);text-decoration:none}
 a:hover{text-decoration:underline}
 .muted{color:var(--muted)}
 .dash{border:none;border-top:1px dashed var(--border);margin:16px 0}
-.meta{font-size:12px;color:var(--muted)}
+.meta{font-size:13px;color:var(--muted)}
 .err{background:#fff3f3;border:1px solid #ffd0d0;padding:10px;border-radius:8px}
 .skeleton{height:16px;border-radius:6px;background:linear-gradient(90deg,#eee,#f6f7fb,#eee);background-size:200% 100%;animation:sh 1.2s infinite}
 @keyframes sh{0%{background-position:0 0}100%{background-position:200% 0}}
