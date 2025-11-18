@@ -5,6 +5,23 @@
 [build.environment]
   NODE_VERSION = "18"
 
+# Specific routes mapped first
+[[redirects]]
+  from = "/privacy"
+  to = "/privacy/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/terms"
+  to = "/terms/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/disclaimer"
+  to = "/disclaimer/index.html"
+  status = 200
+
+# Fallback for SPA behavior
 [[redirects]]
   from = "/*"
   to = "/index.html"

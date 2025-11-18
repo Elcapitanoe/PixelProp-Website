@@ -3,29 +3,37 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Pixel Build Prop</title>
+    <title>Pixel Props Project</title>
     <link rel="icon" type="image/png" href="./src/favicon.png" />
-    <meta name="description" content="This Magisk module updates the system's build.prop values to emulate Pixel device signatures, allowing Google services to recognize the device as Pixel." />
+    <meta
+      name="description"
+      content="This Magisk module updates the system's build.prop values to emulate Pixel device signatures, allowing Google services to recognize the device as Pixel."
+    />
     <meta name="robots" content="index,follow" />
     <meta name="theme-color" content="#2563eb" />
-    <meta property="og:title" content="Pixel Build Prop" />
-    <meta property="og:description" content="This Magisk module updates the system's build.prop values to emulate Pixel device signatures, allowing Google services to recognize the device as Pixel." />
+    <meta property="og:title" content="Pixel Props Project" />
+    <meta
+      property="og:description"
+      content="This Magisk module updates the system's build.prop values to emulate Pixel device signatures, allowing Google services to recognize the device as Pixel."
+    />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_US" />
     <meta name="twitter:card" content="summary" />
     <link rel="preconnect" href="https://api.github.com" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./src/styles.css" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "SoftwareSourceCode",
-        "name": "Pixel Build Prop",
+        "name": "Pixel Props Project",
         "description": "This module updates the system's build.prop values to emulate Pixel device signatures, allowing Google services to recognize the device as Pixel.",
-        "codeRepository": "https://github.com/Elcapitanoe/Build-Prop-BETA",
+        "codeRepository": "https://github.com/Elcapitanoe/PixelProp-Website",
         "programmingLanguage": "Shell",
         "creator": {
           "@type": "Person",
@@ -38,19 +46,82 @@
     <main class="wrap">
       <section class="card">
         <h1>
-          <a href="https://github.com/Elcapitanoe" target="_blank" rel="noopener noreferrer">Pixel Build Prop</a>
+          <a
+            href="https://github.com/Elcapitanoe"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Pixel Props Project</a
+          >
         </h1>
-        <span>This Magisk module updates the system's build.prop values to emulate Pixel device signatures, allowing Google services to recognize the device as Pixel.</span>
-        <br />
+        <span
+          >This Magisk module updates the system's build.prop values to emulate
+          Pixel device signatures, allowing Google services to recognize the
+          device as Pixel.</span
+        >
         <hr class="dash" />
-        <h2>Latest Release</h2>
         <div id="latestBlock">
-          <div class="skeleton" style="width: 60%"></div>
-          <div class="skeleton" style="width: 40%; margin-top: 6px"></div>
+          <div class="skeleton" style="width: 60%; height: 20px"></div>
+          <div
+            class="skeleton"
+            style="width: 40%; height: 16px; margin-top: 10px"
+          ></div>
+          <div
+            class="skeleton"
+            style="width: 100%; height: 80px; margin-top: 20px"
+          ></div>
         </div>
-        <p class="meta">All automation, build scripts, and packaging logic are designed and maintained by <a href="https://github.com/0x11DFE" target="_blank" rel="noopener noreferrer">0x11DFE</a></p>
+        <br />
+        <footer class="site-footer" aria-label="Site footer">
+          <div class="inner">
+            <div class="left">
+              <span class="brand">© 2025 - Pixel Props Project</span>
+              <span class="meta">
+                Automation and script maintained by
+                <a
+                  href="https://github.com/0x11DFE"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >0x11DFE</a
+                >.<br />
+                Website developed by
+                <a
+                  href="https://github.com/Elcapitanoe"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Elcapitanoe</a
+                >.
+              </span>
+            </div>
+            <nav class="right" aria-label="Footer links">
+              <a
+                href="https://github.com/Elcapitanoe/PixelProp-Website"
+                target="_blank"
+                rel="noopener noreferrer"
+                >GitHub</a
+              >
+              <a href="/privacy/" rel="noopener noreferrer">Privacy</a>
+              <a href="/terms/" rel="noopener noreferrer">Terms</a>
+              <a href="/disclaimer/" rel="noopener noreferrer">Disclaimer</a>
+            </nav>
+          </div>
+        </footer>
       </section>
     </main>
+
+    <div class="modal-overlay" id="checksumModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 id="modalFileName">Checksum</h3>
+          <button type="button" class="modal-close" id="modalCloseBtn">
+            &times;
+          </button>
+        </div>
+        <div class="modal-body">
+          <p><strong>SHA256:</strong></p>
+          <code id="modalChecksumData">...</code>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/script.js"></script>
   </body>
 </html>
