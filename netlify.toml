@@ -7,18 +7,23 @@
 
 # Specific routes mapped first
 [[redirects]]
-  from = "/privacy"
-  to = "/privacy/index.html"
+  from = "/about/"
+  to = "/about/index.html"
   status = 200
 
 [[redirects]]
-  from = "/terms"
-  to = "/terms/index.html"
+  from = "/guides/"
+  to = "/guides/index.html"
   status = 200
 
 [[redirects]]
   from = "/disclaimer"
   to = "/disclaimer/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/downloads/"
+  to = "/downloads/index.html"
   status = 200
 
 # Fallback for SPA behavior
