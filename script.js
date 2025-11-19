@@ -156,8 +156,8 @@
     const closeModal = () => modal.classList.add('hidden');
     const openModalWith = (fileName, checksumRaw) => {
       modalTitle.textContent = fileName || 'File';
-      const decoded = esc(checksumRaw || 'Checksum not found');
-      modalBody.textContent = decodeHtml(decoded); 
+      const escaped = esc(checksumRaw || 'Checksum not found');
+      modalBody.textContent = escaped;
       modal.classList.remove('hidden');
 
       const copyBtn = document.getElementById('modalCopyBtn');
@@ -165,7 +165,7 @@
       copyBtn.parentNode.replaceChild(newBtn, copyBtn);
       
       newBtn.addEventListener('click', async () => {
-        const text = decodeHtml(decoded);
+        const text = escaped;
         try {
           await navigator.clipboard.writeText(text);
           const originalText = newBtn.textContent;
