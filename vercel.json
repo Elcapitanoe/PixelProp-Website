@@ -5,9 +5,13 @@
   "installCommand": "npm install",
   "framework": "vite",
   "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ]
+  {
+    "source": "/(privacy|terms|disclaimer)/?",
+    "destination": "/$1/index.html"
+  },
+  {
+    "source": "/(.*)",
+    "destination": "/index.html"
+  }
+]
 }

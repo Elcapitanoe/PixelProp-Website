@@ -1,31 +1,26 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: [
     "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,html}",
+    "./downloads/**/*.html",
+    "./**/*.{html,js}"
   ],
   theme: {
     extend: {
       colors: {
-        'custom-bg': '#f7f9fc',
-        'custom-card': '#fff',
-        'custom-text': '#0f172a',
-        'custom-muted': '#64748b',
-        'custom-accent': '#2563eb',
-        'custom-border': '#e5e7eb',
+        primary: '#2563eb', 
+        primaryHover: '#1d4ed8',
+        dark: '#0f172a',
+        light: '#f8fafc',
       },
       fontFamily: {
-        'inter': ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Ubuntu', 'Helvetica', 'Arial', 'sans-serif'],
+        sans: ['Inter', 'sans-serif'],
       },
-      animation: {
-        'skeleton': 'skeleton 1.2s infinite',
-      },
-      keyframes: {
-        skeleton: {
-          '0%': { 'background-position': '0 0' },
-          '100%': { 'background-position': '200% 0' },
-        },
-      },
+      boxShadow: {
+        'soft': '0 10px 40px -10px rgba(0, 0, 0, 0.08)',
+        'glow': '0 0 20px rgba(37, 99, 235, 0.15)'
+      }
     },
   },
   plugins: [],
