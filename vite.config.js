@@ -15,7 +15,8 @@ export default defineConfig({
         about: resolve(__dirname, 'about/index.html'),
         disclaimer: resolve(__dirname, 'disclaimer/index.html'),
         downloads: resolve(__dirname, 'downloads/index.html'),
-        guides: resolve(__dirname, 'guides/index.html')
+        guides: resolve(__dirname, 'guides/index.html'),
+        changelogs: resolve(__dirname, 'changelogs/index.html')
       },
       output: {
         manualChunks: undefined,

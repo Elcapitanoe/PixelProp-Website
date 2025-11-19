@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Changelogs | Pixel Prop Project</title>
+    <link rel="icon" type="image/png" href="../src/pixelprop-logo-rc.png" />
+    <meta name="description" content="Real-time development timeline for Pixel Prop Project." />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link href="../style.css" rel="stylesheet">
+</head>
+<body class="antialiased bg-white min-h-screen flex flex-col">
+
+    <nav class="fixed w-full z-50 top-0 bg-white/95 backdrop-blur-md border-b border-slate-200 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 md:h-20">
+                <a href="/" class="flex items-center gap-3 group">
+                    <div class="w-9 h-9 bg-primary rounded-lg flex items-center justify-center shadow-glow text-white shrink-0 group-hover:scale-105 transition">
+                        <span><img src="../src/pixelprop-logo-rc.png"/></span>
+                    </div>
+                    <div>
+                        <span class="block font-bold text-base md:text-lg tracking-tight text-slate-900">Pixel Prop</span>
+                        <span class="block text-[10px] text-slate-500 uppercase tracking-widest leading-none">Project</span>
+                    </div>
+                </a>
+
+                <div class="hidden md:block">
+                    <div class="flex items-center space-x-8">
+                        <a href="/" class="text-sm font-medium text-slate-600 hover:text-primary transition">Home</a>
+                        <a href="/about.html" class="text-sm font-medium text-slate-600 hover:text-primary transition">About</a>
+                        <a href="/disclaimer/" class="text-sm font-medium text-slate-600 hover:text-primary transition">Disclaimer</a>
+                        <a href="/guides/" class="text-sm font-medium text-slate-600 hover:text-primary transition">Guides</a>
+                        <a href="/changelogs/" class="text-sm font-bold text-primary transition">Changelogs</a>
+                        <a href="https://github.com/Elcapitanoe/PixelProp-Website" target="_blank" class="text-sm font-medium text-slate-600 hover:text-primary transition">Source Code</a>
+                        <a href="/downloads/" class="bg-primary text-white px-5 py-2.5 rounded-md text-sm font-semibold hover:bg-primaryHover transition shadow-lg shadow-blue-500/20">
+                            Download Module
+                        </a>
+                    </div>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-primary focus:outline-none p-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                            <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 absolute w-full left-0 shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="/" class="block px-4 py-3 rounded-lg text-base font-medium text-slate-600 hover:text-primary hover:bg-blue-50 transition">Home</a>
+                <a href="/about.html" class="block px-4 py-3 rounded-lg text-base font-medium text-slate-600 hover:text-primary hover:bg-blue-50 transition">About</a>
+                <a href="/disclaimer/" class="block px-4 py-3 rounded-lg text-base font-medium text-slate-600 hover:text-primary hover:bg-blue-50 transition">Disclaimer</a>
+                <a href="/guides/" class="block px-4 py-3 rounded-lg text-base font-medium text-slate-600 hover:text-primary hover:bg-blue-50 transition">Guides</a>
+                <a href="/changelogs/" class="block px-4 py-3 rounded-lg text-base font-medium text-slate-900 bg-blue-50 transition">Changelogs</a>
+                <a href="https://github.com/Elcapitanoe/PixelProp-Website" target="_blank" class="block px-4 py-3 rounded-lg text-base font-medium text-slate-600 hover:text-primary hover:bg-blue-50 transition">Source Code</a>
+                <div class="pt-4">
+                    <a href="/downloads/" class="block w-full text-center bg-primary text-white px-5 py-3 rounded-lg text-base font-semibold hover:bg-primaryHover transition shadow-lg shadow-blue-500/20">
+                        Download Module
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow relative pt-28 pb-20 px-4 md:pt-32">
+        <div class="absolute inset-0 bg-grid z-0 pointer-events-none"></div>
+        
+        <div class="relative z-10 max-w-4xl mx-auto">
+            
+            <div class="text-center mb-10 md:mb-12">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-600 text-[10px] md:text-xs font-semibold tracking-wide uppercase mb-4">
+                    <span class="relative flex h-2 w-2">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                    </span>
+                    Live Tracker
+                </div>
+                <h1 class="text-3xl md:text-5xl font-bold text-slate-900 mb-4">Changelogs</h1>
+                <p class="text-base md:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                    Real-time commit history from our GitHub repositories.
+                </p>
+            </div>
+
+            <div class="flex justify-center mb-10">
+                <div class="bg-slate-100 p-1.5 rounded-xl inline-flex gap-1 border border-slate-200 shadow-inner">
+                    <button onclick="switchTab('module')" id="tab-module" class="px-4 md:px-8 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 shadow-sm bg-white text-primary ring-1 ring-black/5">
+                        Module
+                    </button>
+                    <button onclick="switchTab('website')" id="tab-website" class="px-4 md:px-8 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 text-slate-500 hover:text-slate-900">
+                        Website
+                    </button>
+                </div>
+            </div>
+
+            <div id="panel-module">
+                <div id="list-module" class="relative border-l-2 border-slate-200 ml-3 md:ml-6 space-y-8 min-h-[400px]">
+                    <div id="skeleton-module" class="pl-6 md:pl-10 animate-pulse space-y-4">
+                        <div class="h-5 bg-slate-200 rounded w-1/3"></div>
+                        <div class="h-24 bg-slate-50 border border-slate-100 rounded-xl w-full"></div>
+                        <div class="h-24 bg-slate-50 border border-slate-100 rounded-xl w-full"></div>
+                    </div>
+                </div>
+                
+                <div class="mt-10 flex items-center justify-between pl-6 md:pl-10">
+                    <button onclick="changePage('module', -1)" id="btn-prev-module" disabled class="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium text-slate-400 cursor-not-allowed transition hover:bg-slate-50 disabled:opacity-50">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                        Previous
+                    </button>
+                    <span id="page-num-module" class="text-xs font-mono text-slate-400">Page 1</span>
+                    <button onclick="changePage('module', 1)" id="btn-next-module" class="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium text-slate-700 hover:text-primary hover:border-primary/30 transition shadow-sm hover:shadow-md">
+                        Next
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </button>
+                </div>
+            </div>
+
+
+            <div id="panel-website" class="hidden">
+                <div id="list-website" class="relative border-l-2 border-slate-200 ml-3 md:ml-6 space-y-8 min-h-[400px]">
+                     </div>
+
+                <div class="mt-10 flex items-center justify-between pl-6 md:pl-10">
+                    <button onclick="changePage('website', -1)" id="btn-prev-website" disabled class="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium text-slate-400 cursor-not-allowed transition hover:bg-slate-50 disabled:opacity-50">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                        Previous
+                    </button>
+                    <span id="page-num-website" class="text-xs font-mono text-slate-400">Page 1</span>
+                    <button onclick="changePage('website', 1)" id="btn-next-website" class="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium text-slate-700 hover:text-primary hover:border-primary/30 transition shadow-sm hover:shadow-md">
+                        Next
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 pt-10 md:pt-16 pb-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8 md:mb-12 text-center md:text-left">
+                <div class="mb-6 md:mb-0">
+                    <div class="flex items-center justify-center md:justify-start gap-2 mb-4">
+                        <div class="w-8 h-8 bg-slate-100 rounded flex items-center justify-center text-primary font-bold text-xs border border-slate-600"><img src="../src/pixelprop-logo-rc.png"/></div>
+                        <span class="text-lg md:text-xl font-bold text-slate-900">Pixel Prop Project</span>
+                    </div>
+                    <p class="text-slate-500 text-sm max-w-xs mx-auto md:mx-0">
+                        Open source Android modification project. <br>Designed for educational and enhancement purposes.
+                    </p>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-100 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-400 text-center md:text-left">
+                <div class="mb-2 md:mb-0">
+                    &copy; 2025 Pixel Prop Project. All rights reserved.
+                </div>
+                <div class="flex gap-4">
+                    <span>Maintained by <a href="https://github.com/0x11DFE" class="text-blue-600 hover:underline">0x11DFE</a></span>
+                    <span>&bull;</span>
+                    <span>Website by <a href="https://github.com/Elcapitanoe" class="text-blue-600 hover:underline">Elcapitanoe</a></span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- UI LOGIC ---
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        const closeIcon = document.getElementById('close-icon');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+            menuIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('hidden');
+        });
+
+        function switchTab(tab) {
+            const panelModule = document.getElementById('panel-module');
+            const panelWebsite = document.getElementById('panel-website');
+            const tabModule = document.getElementById('tab-module');
+            const tabWebsite = document.getElementById('tab-website');
+
+            const activeClasses = ['bg-white', 'text-primary', 'shadow-sm', 'ring-1', 'ring-black/5'];
+            const inactiveClasses = ['text-slate-500', 'hover:text-slate-900'];
+
+            if (tab === 'module') {
+                panelModule.classList.remove('hidden');
+                panelWebsite.classList.add('hidden');
+                
+                tabModule.classList.add(...activeClasses);
+                tabModule.classList.remove(...inactiveClasses);
+                tabWebsite.classList.remove(...activeClasses);
+                tabWebsite.classList.add(...inactiveClasses);
+            } else {
+                panelModule.classList.add('hidden');
+                panelWebsite.classList.remove('hidden');
+
+                tabWebsite.classList.add(...activeClasses);
+                tabWebsite.classList.remove(...inactiveClasses);
+                tabModule.classList.remove(...activeClasses);
+                tabModule.classList.add(...inactiveClasses);
+            }
+        }
+
+        // --- DATA LOGIC ---
+
+        const appState = {
+            module: { page: 1, repo: 'Pixel-Props/build.prop', branch: '' },
+            website: { page: 1, repo: 'Elcapitanoe/PixelProp-Website', branch: 'develop' }
+        };
+
+        async function loadCommits(type) {
+            const listId = `list-${type}`;
+            const container = document.getElementById(listId);
+            
+            // Show Skeleton
+            container.innerHTML = `
+                <div class="pl-6 md:pl-10 animate-pulse space-y-4">
+                    <div class="h-5 bg-slate-200 rounded w-1/3"></div>
+                    <div class="h-24 bg-slate-50 border border-slate-100 rounded-xl w-full"></div>
+                    <div class="h-24 bg-slate-50 border border-slate-100 rounded-xl w-full"></div>
+                </div>`;
+
+            const config = appState[type];
+            let url = `https://api.github.com/repos/${config.repo}/commits?per_page=10&page=${config.page}`;
+            if (config.branch) url += `&sha=${config.branch}`;
+
+            try {
+                const res = await fetch(url);
+                if (!res.ok) throw new Error('Rate Limit');
+                const data = await res.json();
+
+                if (data.length === 0) {
+                    container.innerHTML = `<div class="pl-6 text-slate-500">No more commits found.</div>`;
+                    updatePaginationUI(type, true); // Disable Next button
+                    return;
+                }
+
+                // Render Items
+                const html = data.map((item, index) => {
+                    const dateObj = new Date(item.commit.author.date);
+                    const dateStr = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                    const timeStr = dateObj.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+                    const msg = item.commit.message.split('\n')[0].replace(/"/g, ''); // Remove Quotes
+                    
+                    // USERNAME LOGIC: Prioritize GitHub Login, fallback to Git Name
+                    const author = item.author ? item.author.login : item.commit.author.name;
+                    const isLatest = (index === 0 && config.page === 1);
+                    
+                    // Color Logic
+                    let borderColor = 'border-slate-200';
+                    let iconColor = 'bg-slate-200';
+                    if (msg.startsWith('feat')) { borderColor = 'border-green-200'; iconColor = 'bg-green-100 text-green-600'; }
+                    else if (msg.startsWith('fix')) { borderColor = 'border-red-200'; iconColor = 'bg-red-100 text-red-600'; }
+                    else if (msg.startsWith('chore') || msg.startsWith('refactor')) { borderColor = 'border-purple-200'; iconColor = 'bg-purple-100 text-purple-600'; }
+
+                    return `
+                    <div class="relative pl-6 md:pl-10 group">
+                        <div class="absolute -left-[9px] top-1.5 w-4 h-4 bg-white border-4 ${isLatest ? 'border-primary' : 'border-slate-300'} rounded-full group-hover:scale-110 transition duration-300 z-10"></div>
+                        
+                        <div class="flex flex-wrap items-center gap-2 mb-2">
+                             ${isLatest ? '<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-primary/10 text-primary uppercase tracking-wide">Latest</span>' : ''}
+                            <span class="text-sm font-semibold text-slate-700">${dateStr}</span>
+                            <span class="text-xs text-slate-400 font-mono">• ${timeStr}</span>
+                        </div>
+                        
+                        <div class="bg-white border ${borderColor} rounded-xl p-4 md:p-5 shadow-sm hover:shadow-md transition-all duration-200">
+                            <div class="flex flex-col md:flex-row md:items-start justify-between gap-3">
+                                <div class="flex-1">
+                                    <p class="text-sm md:text-base font-medium text-slate-900 leading-relaxed break-words">
+                                        ${msg}
+                                    </p>
+                                </div>
+                                <div class="shrink-0 flex items-center gap-3 md:flex-col md:items-end md:gap-1">
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-5 h-5 rounded-full ${iconColor} flex items-center justify-center text-[10px] font-bold uppercase">
+                                            ${author.charAt(0)}
+                                        </span>
+                                        <span class="text-xs font-medium text-slate-600">${author}</span>
+                                    </div>
+                                    <a href="${item.html_url}" target="_blank" class="text-[10px] font-mono text-slate-400 bg-slate-50 px-2 py-1 rounded border border-slate-100 hover:text-primary hover:border-primary/30 transition">
+                                        ${item.sha.substring(0,7)}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+                }).join('');
+
+                container.innerHTML = html;
+                updatePaginationUI(type, false);
+
+            } catch (err) {
+                container.innerHTML = `<div class="pl-6 text-red-500 text-sm bg-red-50 p-4 rounded-lg border border-red-100">API Limit Reached. Try again later.</div>`;
+            }
+        }
+
+        function updatePaginationUI(type, isEnd) {
+            const btnPrev = document.getElementById(`btn-prev-${type}`);
+            const btnNext = document.getElementById(`btn-next-${type}`);
+            const pageLabel = document.getElementById(`page-num-${type}`);
+            const page = appState[type].page;
+
+            pageLabel.innerText = `Page ${page}`;
+
+            // Handle Previous Button
+            if (page <= 1) {
+                btnPrev.disabled = true;
+                btnPrev.classList.add('text-slate-300', 'cursor-not-allowed');
+                btnPrev.classList.remove('text-slate-700', 'hover:text-primary');
+            } else {
+                btnPrev.disabled = false;
+                btnPrev.classList.remove('text-slate-300', 'cursor-not-allowed');
+                btnPrev.classList.add('text-slate-700', 'hover:text-primary');
+            }
+
+            // Handle Next Button
+            if (isEnd) {
+                btnNext.disabled = true;
+                btnNext.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                btnNext.disabled = false;
+                btnNext.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        function changePage(type, direction) {
+            appState[type].page += direction;
+            loadCommits(type);
+            // Scroll to top of list smoothly
+            document.getElementById(`list-${type}`).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Init
+        loadCommits('module');
+        loadCommits('website');
+
+    </script>
+</body>
+</html>
