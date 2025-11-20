@@ -69,7 +69,7 @@
     "lru-cache": "^10.4.3",
     "merge2": "^1.4.1",
     "micromatch": "^4.0.8",
-    "minimatch": "^9.0.5",
+    "minimatch": "^10.1.1",
     "minipass": "^7.1.2",
     "mz": "^2.7.0",
     "nanoid": "^3.3.11",
