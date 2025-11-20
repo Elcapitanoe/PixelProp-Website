@@ -34,7 +34,7 @@
     "camelcase-css": "^2.0.1",
     "chokidar": "^3.6.0",
     "color-convert": "^2.0.1",
-    "color-name": "^1.1.4",
+    "color-name": "^2.1.0",
     "commander": "^4.1.1",
     "cross-spawn": "^7.0.6",
     "cssesc": "^3.0.0",
