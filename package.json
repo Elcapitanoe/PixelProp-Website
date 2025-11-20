@@ -86,7 +86,7 @@
     "picomatch": "^4.0.3",
     "pify": "^2.3.0",
     "pirates": "^4.0.7",
-    "postcss-import": "^15.1.0",
+    "postcss-import": "^16.1.1",
     "postcss-js": "^4.1.0",
     "postcss-load-config": "^4.0.2",
     "postcss-nested": "^6.2.0",
