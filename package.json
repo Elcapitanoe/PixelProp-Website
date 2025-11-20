@@ -79,7 +79,7 @@
     "object-assign": "^4.1.1",
     "object-hash": "^3.0.0",
     "package-json-from-dist": "^1.0.1",
-    "path-key": "^3.1.1",
+    "path-key": "^4.0.0",
     "path-parse": "^1.0.7",
     "path-scurry": "^1.11.1",
     "picocolors": "^1.1.1",
