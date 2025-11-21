@@ -1,22 +1,22 @@
-import { defineConfig } from 'vite'
-import { resolve } from 'path'
+import { defineConfig } from "vite";
+import { resolve } from "path";
 
 export default defineConfig({
-  appType: 'mpa',
+  appType: "mpa",
 
   build: {
-    outDir: 'dist',
-    assetsDir: 'assets',
+    outDir: "dist",
+    assetsDir: "assets",
     sourcemap: false,
-    minify: 'esbuild',
+    minify: "esbuild",
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'index.html'),
-        about: resolve(__dirname, 'about/index.html'),
-        disclaimer: resolve(__dirname, 'disclaimer/index.html'),
-        downloads: resolve(__dirname, 'downloads/index.html'),
-        guides: resolve(__dirname, 'guides/index.html'),
-        changelogs: resolve(__dirname, 'changelogs/index.html')
+        main: resolve(__dirname, "index.html"),
+        about: resolve(__dirname, "about/index.html"),
+        disclaimer: resolve(__dirname, "disclaimer/index.html"),
+        downloads: resolve(__dirname, "downloads/index.html"),
+        guides: resolve(__dirname, "guides/index.html"),
+        changelogs: resolve(__dirname, "changelogs/index.html"),
       },
       output: {
         manualChunks: undefined,
@@ -28,4 +28,4 @@ export default defineConfig({
     port: 3000,
     open: true,
   },
-})
+});
