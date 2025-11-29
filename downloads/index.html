@@ -1,351 +1,140 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Downloads | Pixel Prop Project</title>
-    <link rel="icon" type="image/png" href="../src/pixelprop-logo-rc.png" />
-    <meta
-      name="description"
-      content="Download the latest Pixel Prop Magisk modules."
-    />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link href="../style.css" rel="stylesheet" />
-  </head>
-  <body
-    class="antialiased bg-white min-h-screen flex flex-col overflow-x-hidden"
-  >
-    <nav
-      class="fixed w-full z-50 top-0 bg-white/95 backdrop-blur-md border-b border-slate-200 transition-all duration-300"
-    >
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-16 md:h-20">
-          <a href="/" class="flex items-center gap-3 group">
-            <div
-              class="w-9 h-9 bg-primary rounded-lg flex items-center justify-center shadow-glow text-white shrink-0 group-hover:scale-105 transition"
-            >
-              <span><img src="../src/pixelprop-logo-rc.png" /></span>
-            </div>
-            <div>
-              <span
-                class="block font-bold text-base md:text-lg tracking-tight text-slate-900"
-                >Pixel Prop</span
-              >
-              <span
-                class="block text-[10px] text-slate-500 uppercase tracking-widest leading-none"
-                >Project</span
-              >
-            </div>
-          </a>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Downloads | Pixel Prop Project</title>
+  <link rel="icon" type="image/png" href="../src/pixelprop-logo-rc.png" />
+  <meta name="description" content="Download the latest Pixel Prop Magisk modules." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    .bg-grid {
+      background-size: 40px 40px;
+      background-image: linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+    }
 
-          <div class="hidden md:block">
-            <div class="flex items-center space-x-8">
-              <a
-                href="/"
-                class="text-sm font-medium text-slate-600 hover:text-primary transition"
-                >Home</a
-              >
-              <a
-                href="/about/"
-                class="text-sm font-medium text-slate-600 hover:text-primary transition"
-                >About</a
-              >
-              <a
-                href="/disclaimer/"
-                class="text-sm font-medium text-slate-600 hover:text-primary transition"
-                >Disclaimer</a
-              >
-              <a
-                href="/guides/"
-                class="text-sm font-medium text-slate-600 hover:text-primary transition"
-                >Guides</a
-              >
-              <a
-                href="/changelogs/"
-                class="text-sm font-medium text-slate-600 hover:text-primary transition"
-                >Changelogs</a
-              >
-              <a
-                href="https://github.com/Elcapitanoe/PixelProp-Website"
-                target="_blank"
-                target="_blank"
-                class="text-sm font-medium text-slate-600 hover:text-primary transition"
-                >Source Code</a
-              >
-            </div>
-          </div>
+    .dark .bg-grid {
+      background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    }
+  </style>
+  <script>
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  </script>
+</head>
 
-          <div class="md:hidden flex items-center">
-            <button
-              id="mobile-menu-btn"
-              class="text-slate-600 hover:text-primary focus:outline-none p-2 rounded-md active:bg-slate-100"
-            >
-              <svg
-                class="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  id="menu-icon"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                ></path>
-                <path
-                  id="close-icon"
-                  class="hidden"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M6 18L18 6M6 6l12 12"
-                ></path>
-              </svg>
-            </button>
-          </div>
-        </div>
-      </div>
+<body
+  class="antialiased bg-white dark:bg-[#020617] text-slate-900 dark:text-white min-h-screen flex flex-col overflow-x-hidden selection:bg-blue-500/30">
 
-      <div
-        id="mobile-menu"
-        class="hidden md:hidden bg-white border-b border-slate-200 absolute w-full left-0 shadow-xl z-40"
-      >
-        <div class="px-4 pt-2 pb-6 space-y-2">
-          <a
-            href="/"
-            class="block px-4 py-3 rounded-lg text-base font-medium text-slate-600 hover:text-primary hover:bg-blue-50 transition"
-            >Home</a
-          >
-          <a
-            href="/about/"
-            class="block px-4 py-3 rounded-lg text-base font-medium text-slate-600 hover:text-primary hover:bg-blue-50 transition"
-            >About</a
-          >
-          <a
-            href="/disclaimer/"
-            class="block px-4 py-3 rounded-lg text-base font-medium text-slate-600 hover:text-primary hover:bg-blue-50 transition"
-            >Disclaimer</a
-          >
-          <a
-            href="/guides/"
-            class="block px-4 py-3 rounded-lg text-base font-medium text-slate-600 hover:text-primary hover:bg-blue-50 transition"
-            >Guides</a
-          >
-          <a
-            href="/changelogs/"
-            class="block px-4 py-3 rounded-lg text-base font-medium text-slate-600 hover:text-primary hover:bg-blue-50 transition"
-            >Changelogs</a
-          >
-          <a
-            href="https://github.com/Elcapitanoe/PixelProp-Website"
-            target="_blank"
-            class="block px-4 py-3 rounded-lg text-base font-medium text-slate-600 hover:text-primary hover:bg-blue-50 transition"
-            >Source Code</a
-          >
-        </div>
-      </div>
-    </nav>
+  <my-header></my-header>
 
-    <main class="flex-grow relative pt-24 pb-12 md:pt-36 px-4 sm:px-6">
-      <div class="absolute inset-0 bg-grid z-0 pointer-events-none"></div>
-
-      <div class="relative z-10 max-w-5xl mx-auto">
-        <div class="text-center mb-10 md:mb-16">
-          <div
-            class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-600 text-[10px] md:text-xs font-semibold tracking-wide uppercase mb-4"
-          >
-            <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
-            Live Repository
-          </div>
-          <h1
-            class="text-3xl md:text-5xl font-bold text-slate-900 mb-3 md:mb-4"
-          >
-            Latest Releases
-          </h1>
-          <p
-            class="text-sm md:text-lg text-slate-600 max-w-xl mx-auto leading-relaxed"
-          >
-            Download the latest Magisk modules directly from GitHub.
-          </p>
-        </div>
-
-        <div id="latestBlock" class="space-y-6 md:space-y-8">
-          <div
-            class="bg-white border border-slate-200 rounded-2xl p-5 md:p-8 shadow-sm animate-pulse"
-          >
-            <div class="flex flex-col md:flex-row justify-between gap-4 mb-8">
-              <div class="space-y-3 w-full md:w-1/2">
-                <div class="h-8 bg-slate-100 rounded w-2/3"></div>
-                <div class="h-4 bg-slate-100 rounded w-1/2"></div>
-              </div>
-              <div class="h-12 bg-slate-100 rounded w-full md:w-1/4"></div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div class="h-32 bg-slate-50 rounded-xl w-full"></div>
-              <div class="h-32 bg-slate-50 rounded-xl w-full"></div>
-              <div class="h-32 bg-slate-50 rounded-xl w-full"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
-
+  <main class="flex-grow relative pt-32 pb-24 px-4 overflow-hidden">
+    <div class="absolute inset-0 bg-grid [mask-image:linear-gradient(to_bottom,white,transparent)] pointer-events-none">
+    </div>
     <div
-      id="checksumModal"
-      class="fixed inset-0 z-[100] hidden"
-      aria-labelledby="modal-title"
-      role="dialog"
-      aria-modal="true"
-    >
-      <div
-        class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"
-        id="modalBackdrop"
-      ></div>
-      <div class="fixed inset-0 z-10 overflow-y-auto">
+      class="absolute top-0 left-1/2 -translate-x-1/2 -mt-20 w-[600px] h-[600px] bg-blue-500/10 dark:bg-blue-500/20 rounded-full blur-[120px] pointer-events-none">
+    </div>
+
+    <div class="relative z-10 max-w-5xl mx-auto">
+      <div class="text-center mb-16">
         <div
-          class="flex min-h-full items-center justify-center p-4 text-center sm:p-0"
-        >
-          <div
-            class="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all w-full max-w-lg border border-slate-100"
-          >
-            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-              <div class="sm:flex sm:items-start">
-                <div
-                  class="mx-auto flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-blue-50 sm:mx-0"
-                >
-                  <svg
-                    class="h-5 w-5 text-primary"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M9 12.75L11.25 15 15 9.75M21 12c0 5.523-4.477 10-10 10S1 17.523 1 12 5.523 2 12 2s10 4.477 10 10z"
-                    />
-                  </svg>
-                </div>
-                <div
-                  class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full"
-                >
-                  <h3
-                    class="text-base font-semibold leading-6 text-slate-900"
-                    id="modalFileName"
-                  >
-                    File Checksum
-                  </h3>
-                  <div class="mt-3">
-                    <div
-                      class="bg-slate-50 rounded-lg p-3 border border-slate-200 break-all"
-                    >
-                      <code
-                        id="modalChecksumData"
-                        class="text-xs font-mono text-slate-600 leading-relaxed block"
-                        >Loading...</code
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
+          class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-500/10 border border-blue-100 dark:border-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-semibold tracking-wide uppercase mb-6 shadow-sm">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+          </span>
+          Live Repository
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white mb-6">
+          Latest Releases
+        </h1>
+        <p class="text-lg text-slate-600 dark:text-slate-400 max-w-xl mx-auto leading-relaxed">
+          Download the latest Magisk modules directly from our GitHub releases.
+        </p>
+      </div>
+
+      <div id="latestBlock" class="space-y-8">
+        <div
+          class="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-3xl p-8 shadow-xl shadow-slate-200/50 dark:shadow-none animate-pulse">
+          <div class="flex flex-col md:flex-row justify-between gap-8 mb-8">
+            <div class="space-y-4 w-full md:w-1/2">
+              <div class="h-8 bg-slate-200 dark:bg-white/10 rounded-lg w-3/4"></div>
+              <div class="h-4 bg-slate-200 dark:bg-white/10 rounded-lg w-1/2"></div>
+            </div>
+            <div class="h-12 bg-slate-200 dark:bg-white/10 rounded-xl w-full md:w-1/3"></div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div
+              class="h-40 bg-slate-50 dark:bg-white/5 rounded-2xl w-full border border-slate-100 dark:border-white/5">
             </div>
             <div
-              class="bg-slate-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 border-t border-slate-100 gap-3"
-            >
-              <button
-                type="button"
-                id="modalCopyBtn"
-                class="inline-flex w-full justify-center rounded-lg bg-primary px-3 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-primaryHover sm:ml-3 sm:w-auto transition active:scale-95"
-              >
-                Copy Hash
-              </button>
-              <button
-                type="button"
-                id="modalCloseBtn"
-                class="mt-3 inline-flex w-full justify-center rounded-lg bg-white px-3 py-2.5 text-sm font-semibold text-slate-700 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-slate-50 sm:mt-0 sm:w-auto transition active:scale-95"
-              >
-                Close
-              </button>
+              class="h-40 bg-slate-50 dark:bg-white/5 rounded-2xl w-full border border-slate-100 dark:border-white/5">
+            </div>
+            <div
+              class="h-40 bg-slate-50 dark:bg-white/5 rounded-2xl w-full border border-slate-100 dark:border-white/5">
             </div>
           </div>
         </div>
       </div>
     </div>
+  </main>
 
-    <footer class="bg-white border-t border-slate-200 pt-10 md:pt-16 pb-8">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div id="checksumModal" class="fixed inset-0 z-[100] hidden" aria-labelledby="modal-title" role="dialog"
+    aria-modal="true">
+    <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity" id="modalBackdrop"></div>
+    <div class="fixed inset-0 z-10 overflow-y-auto">
+      <div class="flex min-h-full items-center justify-center p-4 text-center">
         <div
-          class="flex flex-col md:flex-row justify-between items-center mb-8 md:mb-12 text-center md:text-left"
-        >
-          <div class="mb-6 md:mb-0">
-            <div
-              class="flex items-center justify-center md:justify-start gap-2 mb-4"
-            >
+          class="relative transform overflow-hidden rounded-2xl bg-white dark:bg-[#0B1120] text-left shadow-2xl transition-all w-full max-w-lg border border-slate-200 dark:border-white/10">
+          <div class="px-6 pt-6 pb-6">
+            <div class="sm:flex sm:items-start">
               <div
-                class="w-8 h-8 bg-slate-100 rounded flex items-center justify-center text-primary font-bold text-xs border border-slate-600"
-              >
-                <img src="../src/pixelprop-logo-rc.png" />
+                class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-blue-50 dark:bg-blue-500/10 sm:mx-0">
+                <svg class="h-6 w-6 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M9 12.75L11.25 15 15 9.75M21 12c0 5.523-4.477 10-10 10S1 17.523 1 12 5.523 2 12 2s10 4.477 10 10z" />
+                </svg>
               </div>
-              <span class="text-lg md:text-xl font-bold text-slate-900"
-                >Pixel Prop Project</span
-              >
+              <div class="mt-4 text-center sm:ml-5 sm:mt-0 sm:text-left w-full">
+                <h3 class="text-lg font-bold leading-6 text-slate-900 dark:text-white" id="modalFileName">File Checksum
+                </h3>
+                <div class="mt-4">
+                  <div
+                    class="bg-slate-50 dark:bg-black/30 rounded-lg p-4 border border-slate-200 dark:border-white/10 break-all">
+                    <code id="modalChecksumData"
+                      class="text-xs font-mono text-slate-600 dark:text-slate-400 leading-relaxed block">Loading...</code>
+                  </div>
+                </div>
+              </div>
             </div>
-            <p class="text-slate-500 text-sm max-w-xs mx-auto md:mx-0">
-              Open source Android modification project. <br />Designed for
-              educational and enhancement purposes.
-            </p>
           </div>
-        </div>
-
-        <div
-          class="border-t border-slate-100 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-400 text-center md:text-left"
-        >
-          <div class="mb-2 md:mb-0">
-            &copy; 2025 Pixel Prop Project. All rights reserved.
-          </div>
-          <div class="flex gap-4">
-            <span
-              >Maintained by
-              <a
-                href="https://github.com/0x11DFE"
-                class="text-blue-600 hover:underline"
-                >0x11DFE</a
-              ></span
-            >
-            <span>&bull;</span>
-            <span
-              >Website by
-              <a
-                href="https://github.com/Elcapitanoe"
-                class="text-blue-600 hover:underline"
-                >Elcapitanoe</a
-              ></span
-            >
+          <div
+            class="bg-slate-50 dark:bg-white/5 px-6 py-4 sm:flex sm:flex-row-reverse sm:px-6 gap-3 border-t border-slate-200 dark:border-white/5">
+            <button type="button" id="modalCopyBtn"
+              class="inline-flex w-full justify-center rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto transition active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+              Copy Hash
+            </button>
+            <button type="button" id="modalCloseBtn"
+              class="mt-3 inline-flex w-full justify-center rounded-xl bg-white dark:bg-white/10 px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-transparent hover:bg-slate-50 dark:hover:bg-white/20 sm:mt-0 sm:w-auto transition active:scale-95">
+              Close
+            </button>
           </div>
         </div>
       </div>
-    </footer>
+    </div>
+  </div>
 
-    <script type="module" src="../script.js"></script>
-    <script>
-      const btn = document.getElementById("mobile-menu-btn");
-      const menu = document.getElementById("mobile-menu");
-      const menuIcon = document.getElementById("menu-icon");
-      const closeIcon = document.getElementById("close-icon");
+  <my-footer></my-footer>
+  <script src="../components/header.js"></script>
+  <script src="../components/footer.js"></script>
+  <script type="module" src="../script.js"></script>
+</body>
 
-      btn.addEventListener("click", () => {
-        menu.classList.toggle("hidden");
-        menuIcon.classList.toggle("hidden");
-        closeIcon.classList.toggle("hidden");
-      });
-    </script>
-  </body>
 </html>

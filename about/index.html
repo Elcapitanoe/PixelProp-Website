@@ -1,436 +1,203 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About | Pixel Prop Project</title>
-    <link rel="icon" type="image/png" href="../src/pixelprop-logo-rc.png" />
-    <meta
-      name="description"
-      content="Meet the team and explore the source code behind Pixel Prop Project."
-    />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us | Pixel Prop Project</title>
+  <link rel="icon" type="image/png" href="../src/pixelprop-logo-rc.png" />
+  <meta name="description" content="Meet the team and explore the source code behind Pixel Prop Project." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="../style.css" rel="stylesheet" />
+  <style>
+    .bg-grid {
+      background-size: 40px 40px;
+      background-image: linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+    }
 
-    <link href="../style.css" rel="stylesheet" />
-  </head>
-  <body class="antialiased bg-white min-h-screen flex flex-col">
-    <nav
-      class="fixed w-full z-50 top-0 bg-white/95 backdrop-blur-md border-b border-slate-200 transition-all duration-300"
-    >
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-16 md:h-20">
-          <a href="/" class="flex items-center gap-3 group">
+    .dark .bg-grid {
+      background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    }
+  </style>
+  <script>
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  </script>
+</head>
+
+<body
+  class="antialiased bg-white dark:bg-[#020617] text-slate-900 dark:text-white min-h-screen flex flex-col selection:bg-blue-500/30">
+
+  <my-header></my-header>
+
+  <main class="flex-grow relative pt-32 pb-24 px-4 overflow-hidden">
+    <div class="absolute inset-0 bg-grid [mask-image:linear-gradient(to_bottom,white,transparent)] pointer-events-none">
+    </div>
+    <div
+      class="absolute top-0 left-1/2 -translate-x-1/2 -mt-20 w-[600px] h-[600px] bg-blue-500/10 dark:bg-blue-500/20 rounded-full blur-[120px] pointer-events-none">
+    </div>
+
+    <div class="relative z-10 max-w-6xl mx-auto">
+      <div class="text-center mb-20">
+        <div
+          class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-500/10 border border-blue-100 dark:border-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-semibold tracking-wide uppercase mb-6 shadow-sm">
+          The Team Behind The Code
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white mb-6">
+          Driving Innovation in <br />
+          <span
+            class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500 dark:from-blue-400 dark:to-indigo-400">Android
+            Customization</span>
+        </h1>
+        <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+          Pixel Prop is an open-source initiative dedicated to bringing the best Google Pixel experience to any Android
+          device through systemless modification.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 mb-24">
+        <div
+          class="group relative p-8 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-3xl hover:border-blue-500/30 dark:hover:border-blue-500/30 transition-all duration-300 hover:shadow-xl hover:shadow-slate-200/50 dark:hover:shadow-none">
+          <div class="flex items-start justify-between mb-8">
             <div
-              class="w-9 h-9 bg-primary rounded-lg flex items-center justify-center shadow-glow text-white shrink-0 group-hover:scale-105 transition"
-            >
-              <span><img src="../src/pixelprop-logo-rc.png" /></span>
-            </div>
-            <div>
-              <span
-                class="block font-bold text-base md:text-lg tracking-tight text-slate-900"
-                >Pixel Prop</span
-              >
-              <span
-                class="block text-[10px] text-slate-500 uppercase tracking-widest leading-none"
-                >Project</span
-              >
-            </div>
-          </a>
-
-          <div class="hidden md:block">
-            <div class="flex items-center space-x-8">
-              <a
-                href="/"
-                class="text-sm font-medium text-slate-600 hover:text-primary transition"
-                >Home</a
-              >
-              <a
-                href="/about.html"
-                class="text-sm font-bold text-primary transition"
-                >About</a
-              >
-              <a
-                href="/disclaimer/"
-                class="text-sm font-medium text-slate-600 hover:text-primary transition"
-                >Disclaimer</a
-              >
-              <a
-                href="/guides/"
-                class="text-sm font-medium text-slate-600 hover:text-primary transition"
-                >Guides</a
-              >
-              <a
-                href="/changelogs/"
-                class="text-sm font-medium text-slate-600 hover:text-primary transition"
-                >Changelogs</a
-              >
-              <a
-                href="https://github.com/Elcapitanoe/PixelProp-Website"
-                target="_blank"
-                target="_blank"
-                class="text-sm font-medium text-slate-600 hover:text-primary transition"
-                >Source Code</a
-              >
-              <a
-                href="/downloads/"
-                class="bg-primary text-white px-5 py-2.5 rounded-md text-sm font-semibold hover:bg-primaryHover transition shadow-lg shadow-blue-500/20"
-              >
-                Download Module
-              </a>
-            </div>
-          </div>
-
-          <div class="md:hidden flex items-center">
-            <button
-              id="mobile-menu-btn"
-              class="text-slate-600 hover:text-primary focus:outline-none p-2"
-            >
-              <svg
-                class="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  id="menu-icon"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                ></path>
-                <path
-                  id="close-icon"
-                  class="hidden"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M6 18L18 6M6 6l12 12"
-                ></path>
+              class="w-14 h-14 bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                  d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
               </svg>
-            </button>
+            </div>
+            <a href="https://github.com/0x11DFE" target="_blank"
+              class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-white/10 text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd"
+                  d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                  clip-rule="evenodd"></path>
+              </svg>
+            </a>
+          </div>
+          <div>
+            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">0x11DFE</h3>
+            <p class="text-blue-600 dark:text-blue-400 font-medium text-sm uppercase tracking-wide mb-4">Core Module
+              Maintainer</p>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+              Responsible for the core module architecture, device fingerprint database maintenance, and implementing
+              complex systemless logic.
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="group relative p-8 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-3xl hover:border-purple-500/30 dark:hover:border-purple-500/30 transition-all duration-300 hover:shadow-xl hover:shadow-slate-200/50 dark:hover:shadow-none">
+          <div class="flex items-start justify-between mb-8">
+            <div
+              class="w-14 h-14 bg-purple-50 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                  d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+              </svg>
+            </div>
+            <a href="https://github.com/Elcapitanoe" target="_blank"
+              class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-white/10 text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd"
+                  d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                  clip-rule="evenodd"></path>
+              </svg>
+            </a>
+          </div>
+          <div>
+            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Elcapitanoe</h3>
+            <p class="text-purple-600 dark:text-purple-400 font-medium text-sm uppercase tracking-wide mb-4">Web
+              Developer & Maintainer</p>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+              Crafting the user interface, managing documentation, and ensuring a seamless experience across the Pixel
+              Prop ecosystem.
+            </p>
           </div>
         </div>
       </div>
 
       <div
-        id="mobile-menu"
-        class="hidden md:hidden bg-white border-b border-slate-200 absolute w-full left-0 shadow-xl"
-      >
-        <div class="px-4 pt-2 pb-6 space-y-2">
-          <a
-            href="/"
-            class="block px-4 py-3 rounded-lg text-base font-medium text-slate-600 hover:text-primary hover:bg-blue-50 transition"
-            >Home</a
-          >
-          <a
-            href="/about.html"
-            class="block px-4 py-3 rounded-lg text-base font-medium text-slate-900 bg-blue-50 transition"
-            >About</a
-          >
-          <a
-            href="/disclaimer/"
-            class="block px-4 py-3 rounded-lg text-base font-medium text-slate-600 hover:text-primary hover:bg-blue-50 transition"
-            >Disclaimer</a
-          >
-          <a
-            href="/guides/"
-            class="block px-4 py-3 rounded-lg text-base font-medium text-slate-600 hover:text-primary hover:bg-blue-50 transition"
-            >Guides</a
-          >
-          <a
-            href="/changelogs/"
-            class="block px-4 py-3 rounded-lg text-base font-medium text-slate-600 hover:text-primary hover:bg-blue-50 transition"
-            >Changelogs</a
-          >
-          <a
-            href="https://github.com/Elcapitanoe/PixelProp-Website"
-            target="_blank"
-            class="block px-4 py-3 rounded-lg text-base font-medium text-slate-600 hover:text-primary hover:bg-blue-50 transition"
-            >Source Code</a
-          >
-          <div class="pt-4">
-            <a
-              href="/downloads/"
-              class="block w-full text-center bg-primary text-white px-5 py-3 rounded-lg text-base font-semibold hover:bg-primaryHover transition shadow-lg shadow-blue-500/20"
-            >
-              Download Module
-            </a>
-          </div>
+        class="relative bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 rounded-3xl p-8 md:p-10 overflow-hidden">
+        <div
+          class="absolute inset-0 bg-grid [mask-image:linear-gradient(to_bottom,white,transparent)] pointer-events-none opacity-50">
         </div>
-      </div>
-    </nav>
-
-    <main class="flex-grow relative pt-32 pb-20 px-4">
-      <div class="absolute inset-0 bg-grid z-0 pointer-events-none"></div>
-
-      <div class="relative z-10 max-w-5xl mx-auto">
-        <div class="text-center mb-16">
-          <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-            Behind the Project
-          </h1>
-          <p class="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
-            Pixel Prop is an open-source initiative dedicated to bringing the
-            best Google Pixel experience to any Android device through
-            systemless modification.
-          </p>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-6 mb-16">
-          <div
-            class="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm hover:shadow-md transition duration-300 group"
-          >
-            <div class="flex items-start justify-between mb-6">
-              <div
-                class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-primary group-hover:scale-110 transition"
-              >
-                <svg
-                  class="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
-                  ></path>
-                </svg>
-              </div>
-              <a
-                href="https://github.com/0x11DFE"
-                target="_blank"
-                class="text-slate-400 hover:text-slate-900 transition"
-              >
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path
-                    fill-rule="evenodd"
-                    d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                    clip-rule="evenodd"
-                  ></path>
-                </svg>
-              </a>
-            </div>
-            <h3 class="text-xl font-bold text-slate-900 mb-1">0x11DFE</h3>
-            <p class="text-primary font-medium text-sm mb-4">
-              Module Maintainer
-            </p>
-            <p class="text-slate-500 text-sm leading-relaxed">
-              Responsible for core module updates, device fingerprint
-              maintenance, and systemless implementation logic.
-            </p>
-          </div>
-
-          <div
-            class="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm hover:shadow-md transition duration-300 group"
-          >
-            <div class="flex items-start justify-between mb-6">
-              <div
-                class="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center text-purple-600 group-hover:scale-110 transition"
-              >
-                <svg
-                  class="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
-                  ></path>
-                </svg>
-              </div>
-              <a
-                href="https://github.com/Elcapitanoe"
-                target="_blank"
-                class="text-slate-400 hover:text-slate-900 transition"
-              >
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path
-                    fill-rule="evenodd"
-                    d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                    clip-rule="evenodd"
-                  ></path>
-                </svg>
-              </a>
-            </div>
-            <h3 class="text-xl font-bold text-slate-900 mb-1">Elcapitanoe</h3>
-            <p class="text-purple-600 font-medium text-sm mb-4">
-              Web Developer
-            </p>
-            <p class="text-slate-500 text-sm leading-relaxed">
-              Building the front-end interface, maintaining the repository
-              documentation, and ensuring smooth user experience.
-            </p>
-          </div>
-        </div>
-
-        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-8 mb-16">
-          <h2 class="text-2xl font-bold text-slate-900 mb-6">
+        <div class="relative z-10">
+          <h2 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-8 text-center md:text-left">
             Source Code & Repositories
           </h2>
-          <div class="grid md:grid-cols-2 gap-4">
-            <a
-              href="https://github.com/Pixel-Props/build.prop"
-              target="_blank"
-              class="flex items-center justify-between p-4 bg-white border border-slate-200 rounded-xl hover:border-green-500 hover:shadow-sm transition group"
-            >
-              <div class="flex items-center gap-3">
-                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <a href="https://github.com/Pixel-Props/build.prop" target="_blank"
+              class="group flex items-center justify-between p-5 bg-white dark:bg-[#0B1120] border border-slate-200 dark:border-white/10 rounded-2xl hover:border-green-500/50 dark:hover:border-green-500/50 hover:shadow-lg hover:shadow-green-500/5 transition-all duration-300">
+              <div class="flex items-center gap-4">
+                <div class="relative flex h-3 w-3">
+                  <span
+                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                </div>
                 <div>
-                  <span class="block font-semibold text-slate-900 text-sm"
-                    >Stable Release</span
-                  >
-                  <span class="block text-xs text-slate-500"
-                    >github.com/Pixel-Props</span
-                  >
+                  <span
+                    class="block font-bold text-slate-900 dark:text-white text-base mb-0.5 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">Stable
+                    Release</span>
+                  <span class="block text-xs font-mono text-slate-500 dark:text-slate-500">github.com/Pixel-Props</span>
                 </div>
               </div>
-              <svg
-                class="w-4 h-4 text-slate-400 group-hover:text-green-500 transition"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                ></path>
-              </svg>
-            </a>
-
-            <a
-              href="https://github.com/Elcapitanoe/Build-Prop-BETA"
-              target="_blank"
-              class="flex items-center justify-between p-4 bg-white border border-slate-200 rounded-xl hover:border-amber-500 hover:shadow-sm transition group"
-            >
-              <div class="flex items-center gap-3">
-                <div class="w-2 h-2 bg-amber-500 rounded-full"></div>
-                <div>
-                  <span class="block font-semibold text-slate-900 text-sm"
-                    >Beta Release</span
-                  >
-                  <span class="block text-xs text-slate-500"
-                    >github.com/Elcapitanoe</span
-                  >
-                </div>
-              </div>
-              <svg
-                class="w-4 h-4 text-slate-400 group-hover:text-amber-500 transition"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                ></path>
-              </svg>
-            </a>
-          </div>
-          <div class="mt-6 text-center">
-            <a
-              href="https://github.com/Pixel-Props/build.prop"
-              target="_blank"
-              class="inline-flex items-center gap-2 text-sm text-primary hover:underline"
-            >
-              <span>View full feature list and documentation</span>
-              <svg
-                class="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M14 5l7 7m0 0l-7 7m7-7H3"
-                ></path>
-              </svg>
-            </a>
-          </div>
-        </div>
-      </div>
-    </main>
-
-    <footer class="bg-white border-t border-slate-200 pt-10 md:pt-16 pb-8">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div
-          class="flex flex-col md:flex-row justify-between items-center mb-8 md:mb-12 text-center md:text-left"
-        >
-          <div class="mb-6 md:mb-0">
-            <div
-              class="flex items-center justify-center md:justify-start gap-2 mb-4"
-            >
               <div
-                class="w-8 h-8 bg-slate-100 rounded flex items-center justify-center text-primary font-bold text-xs border border-slate-600"
-              >
-                <img src="../src/pixelprop-logo-rc.png" />
+                class="w-8 h-8 rounded-full bg-slate-50 dark:bg-white/5 flex items-center justify-center text-slate-400 group-hover:text-green-500 dark:group-hover:text-green-400 transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                </svg>
               </div>
-              <span class="text-lg md:text-xl font-bold text-slate-900"
-                >Pixel Prop Project</span
-              >
-            </div>
-            <p class="text-slate-500 text-sm max-w-xs mx-auto md:mx-0">
-              Open source Android modification project. <br />Designed for
-              educational and enhancement purposes.
-            </p>
-          </div>
-        </div>
+            </a>
 
-        <div
-          class="border-t border-slate-100 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-400 text-center md:text-left"
-        >
-          <div class="mb-2 md:mb-0">
-            &copy; 2025 Pixel Prop Project. All rights reserved.
+            <a href="https://github.com/Elcapitanoe/Build-Prop-BETA" target="_blank"
+              class="group flex items-center justify-between p-5 bg-white dark:bg-[#0B1120] border border-slate-200 dark:border-white/10 rounded-2xl hover:border-amber-500/50 dark:hover:border-amber-500/50 hover:shadow-lg hover:shadow-amber-500/5 transition-all duration-300">
+              <div class="flex items-center gap-4">
+                <div class="relative flex h-3 w-3">
+                  <span class="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
+                </div>
+                <div>
+                  <span
+                    class="block font-bold text-slate-900 dark:text-white text-base mb-0.5 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">Beta
+                    Release</span>
+                  <span class="block text-xs font-mono text-slate-500 dark:text-slate-500">github.com/Elcapitanoe</span>
+                </div>
+              </div>
+              <div
+                class="w-8 h-8 rounded-full bg-slate-50 dark:bg-white/5 flex items-center justify-center text-slate-400 group-hover:text-amber-500 dark:group-hover:text-amber-400 transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                </svg>
+              </div>
+            </a>
           </div>
-          <div class="flex gap-4">
-            <span
-              >Maintained by
-              <a
-                href="https://github.com/0x11DFE"
-                class="text-blue-600 hover:underline"
-                >0x11DFE</a
-              ></span
-            >
-            <span>&bull;</span>
-            <span
-              >Website by
-              <a
-                href="https://github.com/Elcapitanoe"
-                class="text-blue-600 hover:underline"
-                >Elcapitanoe</a
-              ></span
-            >
+
+          <div class="mt-8 pt-8 border-t border-slate-200 dark:border-white/5 text-center">
+            <a href="https://github.com/Pixel-Props/build.prop" target="_blank"
+              class="inline-flex items-center gap-2 text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors">
+              <span>View full documentation & contribution guidelines</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3">
+                </path>
+              </svg>
+            </a>
           </div>
         </div>
       </div>
-    </footer>
+    </div>
+  </main>
 
-    <script>
-      const btn = document.getElementById("mobile-menu-btn");
-      const menu = document.getElementById("mobile-menu");
-      const menuIcon = document.getElementById("menu-icon");
-      const closeIcon = document.getElementById("close-icon");
+  <my-footer></my-footer>
+  <script src="../components/header.js"></script>
+  <script src="../components/footer.js"></script>
+</body>
 
-      btn.addEventListener("click", () => {
-        menu.classList.toggle("hidden");
-        menuIcon.classList.toggle("hidden");
-        closeIcon.classList.toggle("hidden");
-      });
-    </script>
-  </body>
 </html>

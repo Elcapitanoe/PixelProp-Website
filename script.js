@@ -249,7 +249,7 @@
 
   function renderLatestBlock(latestRows) {
     if (!latestRows.length)
-      return `<div class="p-6 bg-red-50 text-red-600 rounded-xl text-center border border-red-100 text-sm">No releases found.</div>`;
+      return `<div class="p-6 bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 rounded-xl text-center border border-red-100 dark:border-red-500/20 text-sm">No releases found.</div>`;
 
     return latestRows
       .map(({ label, latest, type }) => {
@@ -265,13 +265,13 @@
 
         let badgeHtml =
           type === "beta"
-            ? `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-700 border border-amber-200 uppercase tracking-wide">Beta</span>`
-            : `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-green-100 text-green-700 border border-green-200 uppercase tracking-wide">Stable</span>`;
+            ? `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 dark:bg-amber-500/20 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-500/20 uppercase tracking-wide">Beta</span>`
+            : `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-green-100 dark:bg-green-500/20 text-green-700 dark:text-green-400 border border-green-200 dark:border-green-500/20 uppercase tracking-wide">Stable</span>`;
 
         let assetsHtml = "";
         if (assets.length) {
           assetsHtml =
-            '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 mt-5 md:mt-6">' +
+            '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">' +
             assets
               .map((a) => {
                 const fileNameRaw = a.name || "";
@@ -297,30 +297,30 @@
                   };
 
                 return `
-                  <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 md:p-5 hover:border-blue-300 hover:shadow-md transition duration-200 flex flex-col justify-between group">
+                  <div class="bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-5 hover:border-blue-300 dark:hover:border-blue-500/50 hover:shadow-md dark:hover:shadow-blue-500/5 transition duration-300 flex flex-col justify-between group h-full">
                     <div class="mb-4">
-                        <div class="flex items-start justify-between gap-2 mb-3">
-                            <h3 class="text-sm font-semibold text-slate-800 break-all leading-tight" title="${fileName}">${fileName}</h3>
-                            <span class="bg-white p-1 rounded-md border border-slate-100 text-blue-500 shadow-sm shrink-0">
-                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        <div class="flex items-start justify-between gap-3 mb-3">
+                            <h3 class="text-sm font-semibold text-slate-800 dark:text-slate-200 break-all leading-tight" title="${fileName}">${fileName}</h3>
+                            <span class="bg-white dark:bg-[#020617] p-1.5 rounded-lg border border-slate-100 dark:border-white/10 text-blue-500 dark:text-blue-400 shadow-sm shrink-0">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                             </span>
                         </div>
-                        <div class="space-y-1.5">
-                            <div class="flex items-center gap-2 text-xs text-slate-500">
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
                                 <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
                                 <span class="truncate">${esc(
                                   meta.deviceName
                                 )}</span>
                             </div>
-                            <div class="flex items-center gap-2 text-xs text-slate-500">
+                            <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
                                 <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                                 <span>${dlCount} Downloads</span>
                             </div>
                         </div>
                     </div>
-                    <div class="flex items-center gap-2 pt-3 border-t border-slate-200/60">
-                      <a href="${dlUrl}" class="flex-1 text-center px-3 py-2 bg-primary hover:bg-primaryHover text-white text-xs font-semibold rounded-lg transition shadow-sm active:scale-95" target="_blank">Download</a>
-                      <button type="button" class="px-3 py-2 bg-white hover:bg-slate-100 text-slate-600 border border-slate-200 text-xs font-medium rounded-lg transition show-checksum-btn active:scale-95" 
+                    <div class="flex items-center gap-2 pt-4 border-t border-slate-200/60 dark:border-white/10 mt-auto">
+                      <a href="${dlUrl}" class="flex-1 text-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition shadow-lg shadow-blue-500/20 active:scale-95" target="_blank">Download</a>
+                      <button type="button" class="px-4 py-2 bg-white dark:bg-white/5 hover:bg-slate-50 dark:hover:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-white/10 text-xs font-semibold rounded-lg transition show-checksum-btn active:scale-95" 
                         data-filename="${attrEscape(
                           fileNameRaw
                         )}" data-checksum="${attrEscape(
@@ -332,34 +332,33 @@
               .join("") +
             "</div>";
         } else {
-          assetsHtml = `<div class="text-center py-8 text-slate-400 bg-slate-50 rounded-xl mt-4 border border-dashed border-slate-200 text-sm">No assets available.</div>`;
+          assetsHtml = `<div class="text-center py-10 text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-white/5 rounded-2xl mt-6 border border-dashed border-slate-200 dark:border-white/10 text-sm">No assets available.</div>`;
         }
 
-        // DESIGN RESPONSIVE: Header Row & Total Downloads Bar
         return `
-          <div class="bg-white border border-slate-200 rounded-2xl p-5 md:p-8 shadow-sm hover:shadow-md transition duration-300 mb-6 md:mb-8">
+          <div class="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-3xl p-6 md:p-8 shadow-sm hover:shadow-lg dark:hover:shadow-none transition duration-300 mb-8">
             
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-slate-100">
-              <div class="flex flex-col gap-1">
-                <div class="flex items-center gap-3">
-                    <h2 class="text-lg md:text-2xl font-bold text-slate-900 break-all">${tag}</h2>
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-slate-100 dark:border-white/5">
+              <div class="flex flex-col gap-2">
+                <div class="flex items-center gap-3 flex-wrap">
+                    <h2 class="text-xl md:text-2xl font-bold text-slate-900 dark:text-white break-all">${tag}</h2>
                     ${badgeHtml}
                 </div>
-                <p class="text-xs md:text-sm text-slate-500">
+                <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400">
                     By <a href="https://github.com/${esc(
                       label
-                    )}" target="_blank" class="font-medium text-primary hover:underline">${esc(
+                    )}" target="_blank" class="font-medium text-blue-600 dark:text-blue-400 hover:underline">${esc(
           label
         )}</a>
                     &bull; ${pubDate}
                 </p>
               </div>
 
-              <div class="flex items-center justify-between md:justify-end bg-slate-50 px-4 py-3 md:py-2 rounded-xl border border-slate-100 md:ml-auto w-full md:w-auto gap-4">
-                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider md:hidden">Total Downloads</span>
+              <div class="flex items-center justify-between md:justify-end bg-slate-50 dark:bg-white/5 px-5 py-3 rounded-2xl border border-slate-100 dark:border-white/5 md:ml-auto w-full md:w-auto gap-6">
+                <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider md:hidden">Total Downloads</span>
                 <div class="text-right flex items-baseline gap-2 md:block">
-                    <span class="block text-lg md:text-xl font-bold text-slate-900 leading-none">${assetsTotal}</span>
-                    <span class="hidden md:block text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-1">Downloads</span>
+                    <span class="block text-xl md:text-2xl font-bold text-slate-900 dark:text-white leading-none">${assetsTotal}</span>
+                    <span class="hidden md:block text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-wider mt-1">Downloads</span>
                 </div>
               </div>
             </div>
@@ -390,7 +389,7 @@
       latestEl.innerHTML = renderLatestBlock(latestRows);
       initChecksumModals();
     } catch (err) {
-      latestEl.innerHTML = `<div class="p-5 bg-red-50 text-red-800 border border-red-200 rounded-xl text-center text-sm">Error: ${esc(
+      latestEl.innerHTML = `<div class="p-6 bg-red-50 dark:bg-red-500/10 text-red-800 dark:text-red-400 border border-red-200 dark:border-red-500/20 rounded-xl text-center text-sm">Error: ${esc(
         err.message
       )}</div>`;
     }
