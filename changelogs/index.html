@@ -148,7 +148,6 @@
       const tabModule = document.getElementById("tab-module");
       const tabWebsite = document.getElementById("tab-website");
 
-      // Define styles for Active and Inactive states
       const activeClass = "bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 shadow-sm ring-1 ring-black/5 dark:ring-white/10 font-bold";
       const inactiveClass = "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-medium";
 
@@ -156,7 +155,6 @@
         panelModule.classList.remove("hidden");
         panelWebsite.classList.add("hidden");
 
-        // Apply classes
         tabModule.className = `px-6 py-2.5 rounded-lg text-sm transition-all duration-300 ${activeClass}`;
         tabWebsite.className = `px-6 py-2.5 rounded-lg text-sm transition-all duration-300 ${inactiveClass}`;
       } else {
@@ -177,7 +175,6 @@
       const listId = `list-${type}`;
       const container = document.getElementById(listId);
 
-      // Premium Skeleton Loader
       container.innerHTML = `
                 <div class="pl-8 md:pl-12 space-y-8 animate-pulse">
                     <div class="relative">
@@ -215,7 +212,6 @@
           const author = item.author ? item.author.login : item.commit.author.name;
           const isLatest = index === 0 && config.page === 1;
 
-          // Dynamic styling based on commit type
           let borderColor = "border-slate-200 dark:border-white/10";
           let badgeClass = "bg-slate-100 text-slate-600 dark:bg-white/10 dark:text-slate-300 border-slate-200 dark:border-white/5";
 
@@ -243,11 +239,11 @@
                             <div class="bg-white dark:bg-white/5 border ${borderColor} rounded-2xl p-5 md:p-6 shadow-sm hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-none transition-all duration-300 group-hover:-translate-y-1">
                                 <div class="flex flex-col md:flex-row md:items-start justify-between gap-4">
                                     <div class="flex-1">
-                                        <div class="flex items-start gap-3">
-                                            <p class="text-base font-medium text-slate-900 dark:text-white leading-relaxed">
-                                                ${msg}
-                                            </p>
-                                        </div>
+                                    <div class="flex items-start gap-3">
+                                      <p class="flex-1 min-w-0 text-sm font-medium text-slate-900 dark:text-white leading-relaxed break-words">
+                                        ${msg}
+                                      </p>
+                                    </div>
                                     </div>
                                     
                                     <div class="shrink-0 flex items-center gap-3 md:flex-col md:items-end md:gap-2">
