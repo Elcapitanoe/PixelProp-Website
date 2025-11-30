@@ -24,11 +24,11 @@ class MyHeader extends HTMLElement {
     const renderDesktopLinks = () => {
       return menuItems.map(item => {
         const isActive = checkActive(item.link);
-        
+
         const baseClasses = "relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-out overflow-hidden group";
         const activeClasses = "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10 shadow-[0_0_20px_rgba(59,130,246,0.15)] dark:shadow-[0_0_20px_rgba(96,165,250,0.2)] ring-1 ring-blue-500/20 dark:ring-blue-400/20";
         const inactiveClasses = "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/5";
-        
+
         const className = isActive ? `${baseClasses} ${activeClasses}` : `${baseClasses} ${inactiveClasses}`;
 
         return `
@@ -42,13 +42,13 @@ class MyHeader extends HTMLElement {
     const renderMobileLinks = () => {
       return menuItems.map(item => {
         const isActive = checkActive(item.link);
-        
+
         const baseClasses = "flex items-center justify-between w-full px-5 py-4 text-base font-medium border-l-[3px] transition-all duration-300";
         const activeClasses = "border-blue-500 bg-gradient-to-r from-blue-50 to-transparent dark:from-blue-500/10 dark:to-transparent text-blue-700 dark:text-blue-400";
         const inactiveClasses = "border-transparent text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-slate-200";
 
         const className = isActive ? `${baseClasses} ${activeClasses}` : `${baseClasses} ${inactiveClasses}`;
-        const arrowIcon = isActive 
+        const arrowIcon = isActive
           ? `<svg class="w-4 h-4 text-blue-500 drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>`
           : `<svg class="w-4 h-4 text-slate-300 dark:text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>`;
 
@@ -122,13 +122,13 @@ class MyHeader extends HTMLElement {
           </div>
         </div>
 
-        <div id="mobile-menu" class="hidden md:hidden absolute w-full left-0 top-[80px] h-[calc(100vh-80px)] bg-white/95 dark:bg-[#020617]/95 backdrop-blur-2xl border-t border-slate-100 dark:border-white/5 shadow-2xl origin-top transition-all duration-300 overflow-y-auto">
+        <div id="mobile-menu" class="hidden md:hidden absolute w-full left-0 top-[80px] h-[calc(100dvh-80px)] bg-white/95 dark:bg-[#020617]/95 backdrop-blur-2xl border-t border-slate-100 dark:border-white/5 shadow-2xl origin-top transition-all duration-300 overflow-y-auto">
           <div class="flex flex-col h-full">
             <div class="flex-1 py-4 space-y-1">
               ${renderMobileLinks()}
             </div>
             
-            <div class="p-6 mt-auto border-t border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-white/[0.02]">
+            <div class="px-6 pt-6 pb-[calc(2rem+env(safe-area-inset-bottom))] mt-auto border-t border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-white/[0.02]">
               <a href="${basePath}/downloads/" class="flex items-center justify-center w-full gap-2 px-6 py-4 rounded-xl bg-slate-900 dark:bg-blue-600 text-white font-bold text-lg shadow-xl shadow-blue-500/20 active:scale-95 transition-transform">
                 Download Module
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
@@ -141,7 +141,7 @@ class MyHeader extends HTMLElement {
     `;
 
     this.initializeEvents();
-    this.updateIcons(); 
+    this.updateIcons();
   }
 
   initializeEvents() {
@@ -171,7 +171,7 @@ class MyHeader extends HTMLElement {
 
     if (isHidden) {
       menu.classList.remove("hidden");
-      document.body.style.overflow = 'hidden'; 
+      document.body.style.overflow = 'hidden';
       spans[0].classList.add("rotate-45", "translate-x-px");
       spans[1].classList.add("opacity-0", "translate-x-2");
       spans[2].classList.add("-rotate-45", "translate-x-px");
