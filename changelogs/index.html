@@ -64,7 +64,7 @@
         <div
           class="bg-slate-100 dark:bg-white/5 p-1.5 rounded-xl inline-flex gap-1 border border-slate-200 dark:border-white/10 shadow-inner">
           <button onclick="switchTab('module')" id="tab-module"
-            class="px-6 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 shadow-sm bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 ring-1 ring-black/5 dark:ring-white/10">
+            class="px-6 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 shadow-sm bg-white dark:bg-slate-800 text-slate-500 dark:text-white ring-1 ring-black/5 dark:ring-white/10">
             Module
           </button>
           <button onclick="switchTab('website')" id="tab-website"
@@ -90,14 +90,14 @@
 
         <div class="mt-8 flex items-center justify-between pl-10 md:pl-14">
           <button onclick="changePage('module', -1)" id="btn-prev-module" disabled
-            class="flex items-center gap-2 px-5 py-2.5 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-sm font-medium text-slate-400 dark:text-slate-600 cursor-not-allowed transition hover:bg-slate-50 dark:hover:bg-white/10 disabled:opacity-50 disabled:hover:bg-transparent">
+            class="flex items-center gap-2 px-5 py-2.5 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:border-blue-500/30 cursor-not-allowed transition hover:text-blue-600 dark:hover:text-blue-400 shadow-sm">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
             </svg>
             Previous
           </button>
           <span id="page-num-module"
-            class="text-xs font-mono text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-white/5 px-3 py-1 rounded-full">Page
+            class="text-xs font-mono text-slate-500 dark:text-white bg-slate-100 dark:bg-white/5 px-3 py-1 rounded-full">Page
             1</span>
           <button onclick="changePage('module', 1)" id="btn-next-module"
             class="flex items-center gap-2 px-5 py-2.5 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:border-blue-500/30 hover:text-blue-600 dark:hover:text-blue-400 transition shadow-sm">
@@ -116,14 +116,14 @@
 
         <div class="mt-8 flex items-center justify-between pl-10 md:pl-14">
           <button onclick="changePage('website', -1)" id="btn-prev-website" disabled
-            class="flex items-center gap-2 px-5 py-2.5 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-sm font-medium text-slate-400 dark:text-slate-600 cursor-not-allowed transition hover:bg-slate-50 dark:hover:bg-white/10 disabled:opacity-50 disabled:hover:bg-transparent">
+            class="flex items-center gap-2 px-5 py-2.5 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:border-blue-500/30 cursor-not-allowed transition hover:text-blue-600 dark:hover:text-blue-400 shadow-sm">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
             </svg>
             Previous
           </button>
           <span id="page-num-website"
-            class="text-xs font-mono text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-white/5 px-3 py-1 rounded-full">Page
+            class="text-xs font-mono text-slate-500 dark:text-white bg-slate-100 dark:bg-white/5 px-3 py-1 rounded-full">Page
             1</span>
           <button onclick="changePage('website', 1)" id="btn-next-website"
             class="flex items-center gap-2 px-5 py-2.5 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:border-blue-500/30 hover:text-blue-600 dark:hover:text-blue-400 transition shadow-sm">
@@ -134,6 +134,7 @@
           </button>
         </div>
       </div>
+
     </div>
   </main>
 
@@ -148,8 +149,8 @@
       const tabModule = document.getElementById("tab-module");
       const tabWebsite = document.getElementById("tab-website");
 
-      const activeClass = "bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 shadow-sm ring-1 ring-black/5 dark:ring-white/10 font-bold";
-      const inactiveClass = "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-medium";
+      const activeClass = "bg-white dark:bg-slate-800 text-slate-700 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10 font-bold";
+      const inactiveClass = "text-slate-500 dark:text-slate-500 hover:text-slate-500 dark:hover:text-blue-500 font-medium";
 
       if (tab === "module") {
         panelModule.classList.remove("hidden");
