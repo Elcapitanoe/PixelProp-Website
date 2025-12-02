@@ -10,7 +10,7 @@ class MyHeader extends HTMLElement {
       { name: 'Disclaimer', link: `${basePath}/disclaimer/` },
       { name: 'Guides', link: `${basePath}/guides/` },
       { name: 'Changelogs', link: `${basePath}/changelogs/` },
-      { name: 'Source Code', link: 'https://github.com/Elcapitanoe/PixelProp-Website', target: '_blank' }
+      { name: 'GitHub', link: 'https://github.com/Elcapitanoe/PixelProp-Website', target: '_blank' }
     ];
 
     const checkActive = (link) => {

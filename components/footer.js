@@ -15,7 +15,7 @@ class MyFooter extends HTMLElement {
                 <span class="text-lg md:text-xl font-bold text-slate-900 dark:text-white tracking-tight">Pixel Prop Project</span>
               </div>
               <p class="text-slate-500 dark:text-slate-400 text-sm max-w-xs mx-auto md:mx-0 leading-relaxed">
-                Open source Android modification project. <br />Designed for educational and enhancement purposes.
+                Open-source device identity sandbox. <br /> Built for system analysis and personal customization.
               </p>
             </div>
           </div>
