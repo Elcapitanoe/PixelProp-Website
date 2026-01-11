@@ -4,7 +4,7 @@
 <h3 align="center">Pixel Prop Website</h3>
 
 <p align="center">
-  <a href="https://prop.domiadi.com/about/" target="_blank" rel="noopener noreferrer">About</a>
+  <a href="https://pixelprop.pages.dev/about/" target="_blank" rel="noopener noreferrer">About</a>
   &nbsp;|&nbsp;
   <a href="https://github.com/Elcapitanoe/PixelProp-Website/issues">Bug Report</a>
   &nbsp;|&nbsp;
@@ -18,6 +18,4 @@ Pixel Prop Website is a fully automated static site that fetches GitHub Release 
 
 ## Live Site
 
-➜ **https://prop.domiadi.com**
-<br/>
 ➜ **https://pixelprop.pages.dev**
