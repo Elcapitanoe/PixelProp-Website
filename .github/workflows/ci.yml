@@ -14,7 +14,7 @@ jobs:
   validate:
     name: Code Integrity Check
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 10
     permissions:
       contents: read
 
@@ -32,10 +32,12 @@ jobs:
         run: npm ci
 
       - name: Static Type Check
-        run: npm run type-check
+        if: hashFiles('tsconfig.json') != ''
+        run: npx tsc --noEmit
 
       - name: Linter
-        run: npm run lint
+        if: hashFiles('eslint.config.*', '.eslintrc*', '.eslintignore') != ''
+        run: npx eslint . --max-warnings=0
 
       - name: Build Verification
-        run: npm run build
+        run: npm run build --if-present
