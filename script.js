@@ -15,6 +15,7 @@
   ];
 
 const DEVICE_MAP = {
+  "rango": "Pixel 10 Pro Fold",
   "frankel": "Pixel 10 Pro XL",
   "blazer": "Pixel 10 Pro",
   "mustang": "Pixel 10",
@@ -77,23 +78,22 @@ const DEVICE_MAP = {
     return res.json();
   }
 
-  function parseChecksums(body, assets) {
-    const map = new Map();
-    if (!body || !assets) return map;
-    const sha256Regex = /\b[a-fA-F0-9]{64}\b/;
-    const lines = body.split('\n');
+  function getChecksum(asset, body) {
+    if (asset.digest) {
+      return asset.digest.replace(/^sha256:/, '');
+    }
 
-    assets.forEach(asset => {
-      const fileName = asset.name;
-      let checksum = "Checksum not found";
-      const targetLine = lines.find(line => line.includes(fileName) && sha256Regex.test(line));
+    if (body) {
+      const sha256Regex = /\b[a-fA-F0-9]{64}\b/;
+      const lines = body.split('\n');
+      const targetLine = lines.find(line => line.includes(asset.name) && sha256Regex.test(line));
       if (targetLine) {
         const match = targetLine.match(sha256Regex);
-        if (match) checksum = match[0];
+        if (match) return match[0];
       }
-      map.set(fileName, checksum);
-    });
-    return map;
+    }
+
+    return "Checksum not found";
   }
 
   function detectDeviceName(filename) {
@@ -116,7 +116,6 @@ const DEVICE_MAP = {
       const tag = esc(release.tag_name);
       const assets = release.assets || [];
       const assetsTotal = assets.reduce((s, a) => s + (a.download_count || 0), 0);
-      const checksumMap = parseChecksums(release.body || "", assets);
 
       const badgeHtml = type === "beta"
         ? `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 dark:bg-amber-500/20 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-500/20 uppercase tracking-wide">Beta</span>`
@@ -130,7 +129,8 @@ const DEVICE_MAP = {
             const fileName = esc(fileNameRaw);
             const dlUrl = esc(a.browser_download_url);
             const dlCount = a.download_count || 0;
-            const checksum = checksumMap.get(fileNameRaw) || "Checksum not found";
+            
+            const checksum = getChecksum(a, release.body);
             const deviceName = detectDeviceName(fileNameRaw);
 
             return `
