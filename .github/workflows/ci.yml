@@ -1,24 +1,28 @@
-name: CI | TypeScript + HTML + CSS + JS
+name: Production CI
 
 on:
   push:
-    branches: [main, staging, dev]
+    branches: [main]
   pull_request:
-    branches: ["**"]
+    types: [opened, synchronize, reopened]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  lint-and-build:
-    name: Lint, Type Check and Build
+  validate:
+    name: Code Integrity Check
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     permissions:
       contents: read
-      statuses: write
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node.js Environment
         uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -27,28 +31,11 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: TypeScript Type Check
-        if: ${{ hashFiles('tsconfig.json') != '' }}
-        continue-on-error: false
-        run: |
-          npx tsc --noEmit
+      - name: Static Type Check
+        run: npm run type-check
 
-      - name: ESLint for JavaScript/TypeScript
-        if: ${{ hashFiles('.eslintrc*') != '' }}
-        run: |
-          npx eslint . --ext .js,.jsx,.ts,.tsx --max-warnings=0
+      - name: Linter
+        run: npm run lint
 
-      - name: Stylelint for CSS/SCSS
-        if: ${{ hashFiles('stylelint.config.js', '.stylelintrc*') != '' }}
-        run: |
-          npx stylelint "**/*.{css,scss}" --allow-empty-input
-
-      - name: HTMLHint
-        if: ${{ hashFiles('.htmlhintrc') != '' }}
-        run: |
-          npx htmlhint "**/*.html"
-
-      - name: Build Project
-        if: ${{ hashFiles('vite.config.*', 'next.config.js', 'webpack.config.js') != '' }}
-        run: |
-          npm run build
+      - name: Build Verification
+        run: npm run build
