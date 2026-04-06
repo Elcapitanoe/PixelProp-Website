@@ -14,7 +14,7 @@
 
 ## About
 
-Pixel Prop Website is a fully automated static site that fetches GitHub Release assets and exposes them as one-click direct download links. It parses release metadata, builds download views, and keeps itself updated through an hourly CI pipeline. The site always provides the latest build.prop spoof configurations and related assets, with no manual deployment required.
+Pixel Prop Website is a dynamic site that fetches assets directly from the GitHub API to provide one-click download links. By parsing release metadata in real time, it ensures users always have access to the latest build.prop spoof configurations without any manual deployment. To provide a better user experience, the site includes dedicated pages for a disclaimer, guides, and changelogs. It also displays individual and total download counts, along with SHA256 hashes for every file so users can verify the authenticity of their downloads.
 
 ## Live Site
 
