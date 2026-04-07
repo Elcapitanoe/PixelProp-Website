@@ -10,7 +10,7 @@ class MyFooter extends HTMLElement {
             <div class="mb-6 md:mb-0">
               <div class="flex items-center justify-center md:justify-start gap-3 mb-4">
                 <div class="w-10 h-10 bg-white dark:bg-[#0B1120] rounded-lg flex items-center justify-center border border-slate-200 dark:border-white/10 shadow-sm">
-                  <img src="${basePath}/src/pixelprop-logo-rc.png" />
+                  <img src="${basePath}/src/pixelprop-logo-rc-us.webp" />
                 </div>
                 <span class="text-lg md:text-xl font-bold text-slate-900 dark:text-white tracking-tight">Pixel Prop Project</span>
               </div>
