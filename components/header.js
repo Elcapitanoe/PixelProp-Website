@@ -77,7 +77,7 @@ class MyHeader extends HTMLElement {
               <div class="relative shrink-0">
                 <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-lg blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
                 <div class="relative w-10 h-10 bg-white dark:bg-[#0B1120] rounded-lg flex items-center justify-center shadow-sm ring-1 ring-slate-200 dark:ring-white/10">
-                   <img src="${basePath}/src/pixelprop-logo-rc.png" />
+                   <img src="${basePath}/src/pixelprop-logo-rc-us.webp" />
                 </div>
               </div>
               <div class="flex flex-col min-w-0">
