@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Elcapitanoe/PixelProp-Website/refs/heads/main/src/pixelprop-logo-rc.png" width="160" alt="Android Logo" />
+  <img src="https://raw.githubusercontent.com/Elcapitanoe/PixelProp-Website/refs/heads/main/src/pixelprop-logo-rc-us.webp" width="160" alt="Android Logo" />
 </p>
 <h3 align="center">Pixel Prop Website</h3>
 
