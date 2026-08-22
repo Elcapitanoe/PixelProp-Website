@@ -15,10 +15,15 @@
   ];
 
 const DEVICE_MAP = {
+  "yogi": "Pixel 11 Pro Fold",
+  "kodiak": "Pixel 11 Pro XL",
+  "grizzly": "Pixel 11 Pro",
+  "cubs": "Pixel 11",
   "rango": "Pixel 10 Pro Fold",
-  "frankel": "Pixel 10 Pro XL",
+  "mustang": "Pixel 10 Pro XL",
   "blazer": "Pixel 10 Pro",
-  "mustang": "Pixel 10",
+  "frankel": "Pixel 10",
+  "stallion": "Pixel 10a",
   "comet": "Pixel 9 Pro Fold",
   "komodo": "Pixel 9 Pro XL",
   "caiman": "Pixel 9 Pro",
@@ -51,6 +56,7 @@ const DEVICE_MAP = {
   "sailfish": "Pixel",
   "ryu": "Pixel C"
 };
+
 
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) =>
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
