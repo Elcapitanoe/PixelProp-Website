@@ -63,9 +63,13 @@
       <div class="flex justify-center mb-16">
         <div
           class="bg-slate-100 dark:bg-white/5 p-1.5 rounded-xl inline-flex gap-1 border border-slate-200 dark:border-white/10 shadow-inner">
-          <button onclick="switchTab('module')" id="tab-module"
-            class="px-6 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 shadow-sm bg-white dark:bg-slate-800 text-slate-500 dark:text-white ring-1 ring-black/5 dark:ring-white/10">
-            Module
+          <button onclick="switchTab('stable')" id="tab-stable"
+            class="px-6 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 shadow-sm bg-white dark:bg-slate-800 text-slate-700 dark:text-white ring-1 ring-black/5 dark:ring-white/10">
+            Stable
+          </button>
+          <button onclick="switchTab('beta')" id="tab-beta"
+            class="px-6 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
+            Beta
           </button>
           <button onclick="switchTab('website')" id="tab-website"
             class="px-6 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
@@ -74,8 +78,8 @@
         </div>
       </div>
 
-      <div id="panel-module">
-        <div id="list-module"
+      <div id="panel-stable">
+        <div id="list-stable"
           class="relative border-l border-slate-200 dark:border-white/10 ml-6 md:ml-10 space-y-12 min-h-[400px] pb-10">
           <div class="pl-8 md:pl-12 space-y-6 animate-pulse">
             <div class="h-6 bg-slate-200 dark:bg-white/10 rounded w-1/3"></div>
@@ -89,17 +93,43 @@
         </div>
 
         <div class="mt-8 flex items-center justify-between pl-10 md:pl-14">
-          <button onclick="changePage('module', -1)" id="btn-prev-module" disabled
+          <button onclick="changePage('stable', -1)" id="btn-prev-stable" disabled
             class="flex items-center gap-2 px-5 py-2.5 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:border-blue-500/30 cursor-not-allowed transition hover:text-blue-600 dark:hover:text-blue-400 shadow-sm">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
             </svg>
             Previous
           </button>
-          <span id="page-num-module"
+          <span id="page-num-stable"
             class="text-xs font-mono text-slate-500 dark:text-white bg-slate-100 dark:bg-white/5 px-3 py-1 rounded-full">Page
             1</span>
-          <button onclick="changePage('module', 1)" id="btn-next-module"
+          <button onclick="changePage('stable', 1)" id="btn-next-stable"
+            class="flex items-center gap-2 px-5 py-2.5 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:border-blue-500/30 hover:text-blue-600 dark:hover:text-blue-400 transition shadow-sm">
+            Next
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div id="panel-beta" class="hidden">
+        <div id="list-beta"
+          class="relative border-l border-slate-200 dark:border-white/10 ml-6 md:ml-10 space-y-12 min-h-[400px] pb-10">
+        </div>
+
+        <div class="mt-8 flex items-center justify-between pl-10 md:pl-14">
+          <button onclick="changePage('beta', -1)" id="btn-prev-beta" disabled
+            class="flex items-center gap-2 px-5 py-2.5 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:border-blue-500/30 cursor-not-allowed transition hover:text-blue-600 dark:hover:text-blue-400 shadow-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+            Previous
+          </button>
+          <span id="page-num-beta"
+            class="text-xs font-mono text-slate-500 dark:text-white bg-slate-100 dark:bg-white/5 px-3 py-1 rounded-full">Page
+            1</span>
+          <button onclick="changePage('beta', 1)" id="btn-next-beta"
             class="flex items-center gap-2 px-5 py-2.5 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:border-blue-500/30 hover:text-blue-600 dark:hover:text-blue-400 transition shadow-sm">
             Next
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -143,32 +173,28 @@
   <script src="../components/footer.js"></script>
 
   <script>
-    function switchTab(tab) {
-      const panelModule = document.getElementById("panel-module");
-      const panelWebsite = document.getElementById("panel-website");
-      const tabModule = document.getElementById("tab-module");
-      const tabWebsite = document.getElementById("tab-website");
+    const tabs = ["stable", "beta", "website"];
 
+    function switchTab(activeTab) {
       const activeClass = "bg-white dark:bg-slate-800 text-slate-700 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10 font-bold";
-      const inactiveClass = "text-slate-500 dark:text-slate-500 hover:text-slate-500 dark:hover:text-blue-500 font-medium";
+      const inactiveClass = "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-medium";
 
-      if (tab === "module") {
-        panelModule.classList.remove("hidden");
-        panelWebsite.classList.add("hidden");
-
-        tabModule.className = `px-6 py-2.5 rounded-lg text-sm transition-all duration-300 ${activeClass}`;
-        tabWebsite.className = `px-6 py-2.5 rounded-lg text-sm transition-all duration-300 ${inactiveClass}`;
-      } else {
-        panelModule.classList.add("hidden");
-        panelWebsite.classList.remove("hidden");
-
-        tabWebsite.className = `px-6 py-2.5 rounded-lg text-sm transition-all duration-300 ${activeClass}`;
-        tabModule.className = `px-6 py-2.5 rounded-lg text-sm transition-all duration-300 ${inactiveClass}`;
-      }
+      tabs.forEach((tab) => {
+        const panel = document.getElementById(`panel-${tab}`);
+        const btn = document.getElementById(`tab-${tab}`);
+        if (tab === activeTab) {
+          panel.classList.remove("hidden");
+          btn.className = `px-6 py-2.5 rounded-lg text-sm transition-all duration-300 ${activeClass}`;
+        } else {
+          panel.classList.add("hidden");
+          btn.className = `px-6 py-2.5 rounded-lg text-sm transition-all duration-300 ${inactiveClass}`;
+        }
+      });
     }
 
     const appState = {
-      module: { page: 1, repo: "Pixel-Props/build.prop", branch: "" },
+      stable: { page: 1, repo: "Pixel-Props/build.prop", branch: "" },
+      beta: { page: 1, repo: "Elcapitanoe/Build-Prop-BETA", branch: "" },
       website: { page: 1, repo: "Elcapitanoe/PixelProp-Website", branch: "" },
     };
 
@@ -191,7 +217,7 @@
                 </div>`;
 
       const config = appState[type];
-      let url = `https://api.github.com/repos/${config.repo}/commits?per_page=10&page=${config.page}`;
+      let url = `https://api.github.com/repos/${config.repo}/commits?per_page=5&page=${config.page}`;
       if (config.branch) url += `&sha=${config.branch}`;
 
       try {
@@ -301,8 +327,7 @@
       document.getElementById(`list-${type}`).scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
-    loadCommits("module");
-    loadCommits("website");
+    tabs.forEach(loadCommits);
   </script>
 </body>
 
