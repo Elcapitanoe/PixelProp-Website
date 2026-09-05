@@ -15,14 +15,14 @@ class MyFooter extends HTMLElement {
                 <span class="text-lg md:text-xl font-bold text-slate-900 dark:text-white tracking-tight">Pixel Prop Project</span>
               </div>
               <p class="text-slate-500 dark:text-slate-400 text-sm max-w-xs mx-auto md:mx-0 leading-relaxed">
-                Open-source device identity sandbox. <br /> Built for system analysis and personal customization.
+                Open-source systemless Pixel property spoofer for Magisk, KernelSU, and APatch.
               </p>
             </div>
           </div>
 
           <div class="border-t border-slate-100 dark:border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-400 dark:text-slate-500 text-center md:text-left">
             <div class="mb-4 md:mb-0">
-              &copy; ${new Date().getFullYear()} Pixel Prop Project. All rights reserved.
+              &copy; ${new Date().getFullYear()} Pixel Prop Project &bull; Website under MIT License
             </div>
             <div class="flex gap-4">
              <span>Maintained by 

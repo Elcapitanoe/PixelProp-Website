@@ -8,7 +8,7 @@
     <link rel="icon" type="image/webp" href="./src/pixelprop-logo-rc-us.webp">
     <link rel="icon" type="image/png" href="./src/pixelprop-logo-rc-us.png">
     <meta name="description"
-        content="Professional Magisk module to update build.prop values and emulate Pixel device signatures." />
+        content="Systemless Magisk and KernelSU module to spoof Google Pixel properties, fingerprints, and features." />
     <meta name="google-site-verification" content="Ya9sDeUlSNhaSX_Gk5Pa0OxDkhIq0aUCh3MLL54ttUc" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -61,19 +61,19 @@
                             class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
                     </span>
-                    Systemless Implementation
+                    Systemless Root Module
                 </div>
                 <h1
                     class="text-4xl md:text-6xl font-bold tracking-tight text-slate-900 dark:text-white leading-[1.15] mb-6">
-                    Refine your <br class="hidden md:block" />
+                    Spoof Pixel props <br class="hidden md:block" />
                     <span
-                        class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500 dark:from-blue-400 dark:to-indigo-400">device
-                        identity.</span>
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500 dark:from-blue-400 dark:to-indigo-400">on
+                        any ROM.</span>
                 </h1>
                 <p class="text-lg text-slate-600 dark:text-slate-400 mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0">
-                    A tool to emulate verified <strong class="text-slate-900 dark:text-slate-200">system
-                        properties</strong>, designed to enhance app interoperability and access specific OS
-                    functionalities across different ROMs.
+                    Emulate official Pixel fingerprints, unlock device-exclusive features, and keep your
+                    <strong class="text-slate-900 dark:text-slate-200">system properties</strong> in sync directly from
+                    official OTA dumps.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start w-full sm:w-auto">
                     <a href="/downloads/"
@@ -118,11 +118,12 @@
                         <pre class="font-mono text-xs md:text-sm leading-7 text-slate-700 dark:text-slate-300">
 <span class="text-slate-400 dark:text-slate-500 italic"># Target Profile Configuration</span>
 <span class="text-purple-600 dark:text-purple-400">ro.product.brand</span>=<span class="text-green-600 dark:text-green-400">google</span>
-<span class="text-purple-600 dark:text-purple-400">ro.product.name</span>=<span class="text-green-600 dark:text-green-400">mustang</span>
-<span class="text-purple-600 dark:text-purple-400">ro.product.device</span>=<span class="text-green-600 dark:text-green-400">mustang</span>
-<span class="text-purple-600 dark:text-purple-400">ro.build.fingerprint</span>=<span class="text-amber-600 dark:text-amber-400">google/mustang:16/...</span>
-<span class="text-purple-600 dark:text-purple-400">ro.build.version.security_patch</span>=<span class="text-blue-600 dark:text-blue-400">2025-10-05</span>
-<span class="text-slate-400 dark:text-slate-500 italic"># Context: Reference Environment Match</span>
+<span class="text-purple-600 dark:text-purple-400">ro.product.model</span>=<span class="text-green-600 dark:text-green-400">Pixel 11 Pro Fold</span>
+<span class="text-purple-600 dark:text-purple-400">ro.product.name</span>=<span class="text-green-600 dark:text-green-400">yogi</span>
+<span class="text-purple-600 dark:text-purple-400">ro.product.device</span>=<span class="text-green-600 dark:text-green-400">yogi</span>
+<span class="text-purple-600 dark:text-purple-400">ro.build.fingerprint</span>=<span class="text-amber-600 dark:text-amber-400">google/yogi:17/...</span>
+<span class="text-purple-600 dark:text-purple-400">ro.build.version.security_patch</span>=<span class="text-blue-600 dark:text-blue-400">2026-08-05</span>
+<span class="text-slate-400 dark:text-slate-500 italic"># Pixel 11 Pro Fold (yogi)</span>
                         </pre>
                     </div>
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-100/50 dark:from-slate-900/50 to-transparent pointer-events-none">
@@ -135,9 +136,9 @@
         class="py-24 bg-slate-50 dark:bg-[#020617] border-y border-slate-200 dark:border-white/5 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-6">Identity Management</h2>
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-6">What It Does</h2>
                 <p class="text-slate-600 dark:text-slate-400 text-lg">
-                    Engineered for advanced users requiring precise device identity alignment. Maintains system integrity while ensuring seamless operation across strictly validated environments.
+                    Build properties and sysconfig overlays extracted straight from Pixel factory and OTA images. Built for Magisk, KernelSU, and APatch.
                 </p>
             </div>
 
@@ -152,9 +153,9 @@
                             </path>
                         </svg>
                     </div>
-                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Environment Compatibility</h3>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Fingerprint Spoofing</h3>
                     <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
-                        Aligns the execution environment with certified hardware profiles to resolve API discrepancies. Ensures broad interoperability with security-sensitive applications and verification services.
+                        Sets certified Pixel fingerprints, security patch dates, and build IDs across partitions to fix app compatibility and integrity checks.
                     </p>
                 </div>
 
@@ -168,9 +169,9 @@
                             </path>
                         </svg>
                     </div>
-                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Feature Extension</h3>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Pixel Features & Sysconfig</h3>
                     <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
-                        Unlocks OS-level capabilities typically restricted to reference hardware. Expands system utility with enhanced media management, intelligent assistance, and adaptive audio processing.
+                        Bundles genuine Pixel sysconfig XMLs to enable features like Google Photos perks, Assistant, Quick Tap, and Pixel-exclusive app features.
                     </p>
                 </div>
 
@@ -184,9 +185,9 @@
                             </path>
                         </svg>
                     </div>
-                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Non-Intrusive Integration</h3>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Fully Systemless</h3>
                     <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
-                        Operates via a systemless overlay framework (Magisk/KernelSU). Preserves the read-only integrity of the root partition (/system), facilitating seamless OTA updates and reversibility.
+                        Applies overlays via Magisk, KernelSU, or APatch without altering read-only system partitions. Safe, clean, and easily uninstalled.
                     </p>
                 </div>
             </div>

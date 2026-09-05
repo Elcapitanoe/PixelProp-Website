@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Changelogs | Pixel Prop Project</title>
   <link rel="icon" type="image/png" href="../src/pixelprop-logo-rc.png" />
-  <meta name="description" content="Real-time development timeline for Pixel Prop Project." />
+  <meta name="description" content="Commit history and changelogs for Pixel Prop repositories." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -50,13 +50,13 @@
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
             <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
           </span>
-          Live Development Tracker
+          Live Commits
         </div>
         <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white mb-6">
           Project Changelogs
         </h1>
         <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-          Track the real-time evolution of Pixel Prop. All data is fetched directly from our GitHub repositories.
+          Recent commit history fetched directly from the upstream GitHub repositories.
         </p>
       </div>
 
@@ -240,17 +240,13 @@
           const isLatest = index === 0 && config.page === 1;
 
           let borderColor = "border-slate-200 dark:border-white/10";
-          let badgeClass = "bg-slate-100 text-slate-600 dark:bg-white/10 dark:text-slate-300 border-slate-200 dark:border-white/5";
 
           if (msg.toLowerCase().startsWith("feat")) {
             borderColor = "border-green-200 dark:border-green-500/20";
-            badgeClass = "bg-green-50 text-green-700 border-green-200 dark:bg-green-500/10 dark:text-green-400 dark:border-green-500/20";
           } else if (msg.toLowerCase().startsWith("fix")) {
             borderColor = "border-red-200 dark:border-red-500/20";
-            badgeClass = "bg-red-50 text-red-700 border-red-200 dark:bg-red-500/10 dark:text-red-400 dark:border-red-500/20";
           } else if (msg.toLowerCase().startsWith("chore") || msg.toLowerCase().startsWith("refactor")) {
             borderColor = "border-purple-200 dark:border-purple-500/20";
-            badgeClass = "bg-purple-50 text-purple-700 border-purple-200 dark:bg-purple-500/10 dark:text-purple-400 dark:border-purple-500/20";
           }
 
           return `

@@ -46,17 +46,13 @@
       <div class="text-center mb-20">
         <div
           class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-500/10 border border-blue-100 dark:border-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-semibold tracking-wide uppercase mb-6 shadow-sm">
-          The Team Behind The Code
+          Contributors & Code
         </div>
         <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white mb-6">
-          Precision-Engineered <br />
-          <span
-            class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500 dark:from-blue-400 dark:to-indigo-400">System
-            Alignment</span>
+          About The Project
         </h1>
         <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-          Pixel Prop is an open-source initiative dedicated to bringing the best Google Pixel experience to any Android
-          device through systemless modification.
+          Pixel Prop is an open-source project delivering authentic Google Pixel properties, fingerprints, and features to any Android device systemlessly.
         </p>
       </div>
 
@@ -85,8 +81,7 @@
             <p class="text-blue-600 dark:text-blue-400 font-medium text-sm uppercase tracking-wide mb-4">Core Module
               Maintainer</p>
             <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
-              Responsible for the core module architecture, device fingerprint database maintenance, and implementing
-              complex systemless logic.
+              Maintains the core module, OTA extraction scripts, fingerprint database, and systemless Magisk/KernelSU logic.
             </p>
           </div>
         </div>
@@ -115,9 +110,73 @@
             <p class="text-purple-600 dark:text-purple-400 font-medium text-sm uppercase tracking-wide mb-4">Web
               Developer</p>
             <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
-              Crafting the user interface, managing documentation, and ensuring a seamless experience across the Pixel
-              Prop ecosystem.
+              Develops and maintains the website, release mirrors, user documentation, and beta distribution pipelines.
             </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-24">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-3">
+            Module Architecture & Mechanics
+          </h2>
+          <p class="text-sm md:text-base text-slate-600 dark:text-slate-400">
+            Technical breakdown of how Pixel Prop modifies system behavior without touching physical partitions.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="p-6 md:p-8 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="p-2 rounded-lg bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-blue-500/20">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+              </span>
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white">Systemless Prop Overrides</h3>
+            </div>
+            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-3">
+              Loads targeted values from <code class="font-mono text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-white/10 text-slate-800 dark:text-slate-200">system.prop</code> at early boot. Overrides device identity parameters including <code class="font-mono text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-white/10 text-slate-800 dark:text-slate-200">ro.product.*</code> and attestation values (<code class="font-mono text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-white/10 text-slate-800 dark:text-slate-200">ro.product.*_for_attestation</code>) without modifying read-only system partitions.
+            </p>
+            <span class="text-xs font-mono text-slate-400 dark:text-slate-500">Targets: Magisk / KernelSU / APatch</span>
+          </div>
+
+          <div class="p-6 md:p-8 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="p-2 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-500/20">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+              </span>
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white">Sysconfig XML Entitlements</h3>
+            </div>
+            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-3">
+              Mounts authentic Pixel sysconfig definitions directly into <code class="font-mono text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-white/10 text-slate-800 dark:text-slate-200">/product/etc/sysconfig/</code>. Unlocks Pixel-exclusive feature flags at the Android framework level, including Pixel Experience entitlements (2017–2024), Adaptive Charging, Quick Tap gestures, and Next-Generation Assistant (NGA).
+            </p>
+            <span class="text-xs font-mono text-slate-400 dark:text-slate-500">Location: /system/product/etc/sysconfig/</span>
+          </div>
+
+          <div class="p-6 md:p-8 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="p-2 rounded-lg bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-100 dark:border-amber-500/20">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              </span>
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white">Boot Sync & Process Cycling</h3>
+            </div>
+            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-3">
+              The late-start service (<code class="font-mono text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-white/10 text-slate-800 dark:text-slate-200">service.sh</code>) awaits <code class="font-mono text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-white/10 text-slate-800 dark:text-slate-200">sys.boot_completed=1</code> and storage decryption before managing <code class="font-mono text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-white/10 text-slate-800 dark:text-slate-200">config.prop</code> parameters. It synchronizes Google Play Services (GMS), Google Services Framework (GSF), and Quick Search Box processes to refresh cached device identities.
+            </p>
+            <span class="text-xs font-mono text-slate-400 dark:text-slate-500">Lifecycle: late_start service / post-fs-data</span>
+          </div>
+
+          <div class="p-6 md:p-8 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="p-2 rounded-lg bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-500/20">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+              </span>
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white">Install-Time Script Verification</h3>
+            </div>
+            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-3">
+              Installer scripts enforce SHA-256 integrity audits during flash time via <code class="font-mono text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-white/10 text-slate-800 dark:text-slate-200">customize.sh</code>. Every binary and execution script (<code class="font-mono text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-white/10 text-slate-800 dark:text-slate-200">*.sh</code>) is verified against embedded checksums to block unauthorized modifications, malicious repackaging, or incomplete downloads.
+            </p>
+            <span class="text-xs font-mono text-slate-400 dark:text-slate-500">Security: SHA-256 runtime validation</span>
           </div>
         </div>
       </div>
