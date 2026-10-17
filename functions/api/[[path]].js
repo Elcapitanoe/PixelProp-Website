@@ -172,7 +172,10 @@ export async function onRequest({ request, params }) {
   try {
     const upstreamResponse = await fetch(upstreamUrl, {
       method: "GET",
-      redirect: "error",
+      // GitHub may redirect API requests to a canonical repository path.
+      // Follow redirects, then verify that the final URL is still the exact
+      // allowlisted API resource before returning any data to the browser.
+      redirect: "follow",
       signal: controller.signal,
       headers: {
         "Accept": "application/vnd.github+json",
@@ -180,6 +183,29 @@ export async function onRequest({ request, params }) {
         "X-GitHub-Api-Version": "2022-11-28",
       },
     });
+
+    if (upstreamResponse.url) {
+      let finalUrl;
+      try {
+        finalUrl = new URL(upstreamResponse.url);
+      } catch {
+        await upstreamResponse.body?.cancel().catch(() => {});
+        return jsonError(502, "Invalid upstream redirect target");
+      }
+
+      const sameOrigin = finalUrl.origin === "https://api.github.com" &&
+        !finalUrl.username && !finalUrl.password;
+      const samePath = finalUrl.pathname.toLowerCase() === upstreamUrl.pathname.toLowerCase();
+      const normalizeQuery = (url) => JSON.stringify(
+        [...url.searchParams.entries()].sort(([keyA, valueA], [keyB, valueB]) =>
+          keyA.localeCompare(keyB) || valueA.localeCompare(valueB)),
+      );
+      const sameQuery = normalizeQuery(finalUrl) === normalizeQuery(upstreamUrl);
+      if (!sameOrigin || !samePath || !sameQuery) {
+        await upstreamResponse.body?.cancel().catch(() => {});
+        return jsonError(502, "Unexpected upstream redirect target");
+      }
+    }
 
     const contentType = (upstreamResponse.headers.get("content-type") || "")
       .split(";", 1)[0]
@@ -220,6 +246,12 @@ export async function onRequest({ request, params }) {
     }
 
     const timedOut = error?.name === "AbortError";
+    // Keep client errors generic, but retain a bounded diagnostic in the
+    // Cloudflare function logs so upstream fetch failures are actionable.
+    console.error("[PixelProp API] Upstream request failed", {
+      name: typeof error?.name === "string" ? error.name.slice(0, 80) : "Error",
+      message: typeof error?.message === "string" ? error.message.slice(0, 200) : "Unknown error",
+    });
     return jsonError(502, timedOut ? "GitHub API request timed out" : "GitHub API request failed");
   } finally {
     clearTimeout(timeoutId);

@@ -111,11 +111,42 @@ test("constructs a fixed GitHub URL and forwards no visitor credentials", async 
   assert.equal(observedUrl.searchParams.get("page"), "2");
   assert.equal(observedUrl.searchParams.get("sha"), "main");
   assert.equal(observedInit.method, "GET");
-  assert.equal(observedInit.redirect, "error");
+  assert.equal(observedInit.redirect, "follow");
   assert.equal(observedInit.headers.Authorization, undefined);
   assert.equal(observedInit.headers.Cookie, undefined);
   assert.equal(response.headers.get("cloudflare-cdn-cache-control"), "public, max-age=60");
   assert.equal((await response.json())[0].sha, "abc123");
+});
+
+test("accepts canonical GitHub API redirects but rejects redirects outside the allowlist", async (t) => {
+  await withMockFetch(t, async () => {
+    const response = new Response(JSON.stringify([{ id: 1 }]), {
+      status: 200,
+      headers: { "content-type": "application/json" },
+    });
+    Object.defineProperty(response, "url", {
+      value: "https://api.github.com/repos/pixel-props/build.prop/releases?per_page=2",
+    });
+    return response;
+  });
+
+  const canonicalResponse = await onRequest(context());
+  assert.equal(canonicalResponse.status, 200);
+
+  await withMockFetch(t, async () => {
+    const response = new Response(JSON.stringify([{ secret: true }]), {
+      status: 200,
+      headers: { "content-type": "application/json" },
+    });
+    Object.defineProperty(response, "url", {
+      value: "https://evil.example/redirected-data",
+    });
+    return response;
+  });
+
+  const rejectedResponse = await onRequest(context());
+  assert.equal(rejectedResponse.status, 502);
+  assert.equal((await rejectedResponse.json()).error, "Unexpected upstream redirect target");
 });
 
 test("does not cache upstream error responses", async (t) => {
