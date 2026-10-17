@@ -69,7 +69,7 @@
       headers["Authorization"] = `Bearer ${token}`;
     }
 
-    const res = await fetch(/api/repos/${owner}/${repo}/releases?per_page=${count}, {
+    const res = await fetch("/api/repos/" + owner + "/" + repo + "/releases?per_page=" + count, {
       headers
     });
     if (!res.ok) {

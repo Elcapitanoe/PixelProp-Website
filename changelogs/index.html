@@ -217,7 +217,7 @@
                 </div>`;
 
       const config = appState[type];
-      let url = /api/repos/${config.repo}/commits?per_page=5&page=${config.page};
+      let url = "/api/repos/" + config.repo + "/commits?per_page=5&page=" + config.page;
       if (config.branch) url += `&sha=${config.branch}`;
 
       try {
