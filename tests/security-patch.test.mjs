@@ -114,8 +114,79 @@ test("constructs a fixed GitHub URL and forwards no visitor credentials", async 
   assert.equal(observedInit.redirect, "follow");
   assert.equal(observedInit.headers.Authorization, undefined);
   assert.equal(observedInit.headers.Cookie, undefined);
+  assert.equal(response.headers.get("cache-control"), "public, max-age=0, must-revalidate");
   assert.equal(response.headers.get("cloudflare-cdn-cache-control"), "public, max-age=60");
   assert.equal((await response.json())[0].sha, "abc123");
+});
+
+test("caches release metadata and direct download URLs for one hour", async (t) => {
+  const assetUrl = "https://github.com/Pixel-Props/build.prop/releases/download/build-20261011/Akita_CP3A.261005.005.zip";
+  await withMockFetch(t, async () => new Response(JSON.stringify([{
+    tag_name: "build-20261011",
+    assets: [{ name: "Akita_CP3A.261005.005.zip", browser_download_url: assetUrl }],
+  }]), {
+    status: 200,
+    headers: { "content-type": "application/json" },
+  }));
+
+  const response = await onRequest(context({
+    path: ["repos", "Pixel-Props", "build.prop", "releases"],
+    query: "per_page=2",
+  }));
+
+  assert.equal(response.status, 200);
+  assert.equal(response.headers.get("cache-control"), "public, max-age=3600");
+  assert.equal(response.headers.get("cloudflare-cdn-cache-control"), "public, max-age=3600");
+  const payload = await response.json();
+  assert.equal(payload[0].assets[0].browser_download_url, assetUrl);
+});
+
+test("caches Build-Prop-BETA release metadata for one hour and preserves the direct Yogi download URL", async (t) => {
+  const directDownloadUrl = "https://github.com/Elcapitanoe/Build-Prop-BETA/releases/download/beta-20261002/Yogi_beta_DP11.260918.005.zip";
+  let observedUrl;
+
+  await withMockFetch(t, async (url) => {
+    observedUrl = new URL(url);
+    return new Response(JSON.stringify([{
+      tag_name: "beta-20261002",
+      assets: [{
+        name: "Yogi_beta_DP11.260918.005.zip",
+        browser_download_url: directDownloadUrl,
+      }],
+    }]), {
+      status: 200,
+      headers: { "content-type": "application/json" },
+    });
+  });
+
+  const response = await onRequest(context({
+    path: ["repos", "Elcapitanoe", "Build-Prop-BETA", "releases"],
+    query: "per_page=2",
+  }));
+
+  assert.equal(response.status, 200);
+  assert.equal(observedUrl.origin, "https://api.github.com");
+  assert.equal(observedUrl.pathname, "/repos/Elcapitanoe/Build-Prop-BETA/releases");
+  assert.equal(observedUrl.searchParams.get("per_page"), "2");
+  assert.equal(response.headers.get("cache-control"), "public, max-age=3600");
+  assert.equal(response.headers.get("cloudflare-cdn-cache-control"), "public, max-age=3600");
+
+  const payload = await response.json();
+  assert.equal(payload[0].tag_name, "beta-20261002");
+  assert.equal(payload[0].assets[0].browser_download_url, directDownloadUrl);
+  assert.equal(new URL(payload[0].assets[0].browser_download_url).origin, "https://github.com");
+});
+
+test("does not cache non-200 responses from the release endpoint", async (t) => {
+  await withMockFetch(t, async () => new Response(JSON.stringify({ message: "rate limited" }), {
+    status: 403,
+    headers: { "content-type": "application/json" },
+  }));
+
+  const response = await onRequest(context());
+  assert.equal(response.status, 403);
+  assert.equal(response.headers.get("cache-control"), "no-store");
+  assert.equal(response.headers.get("cloudflare-cdn-cache-control"), null);
 });
 
 test("accepts canonical GitHub API redirects but rejects redirects outside the allowlist", async (t) => {

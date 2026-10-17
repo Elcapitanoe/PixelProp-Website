@@ -17,6 +17,8 @@ const ALLOWED_REPOSITORIES = Object.freeze({
 });
 
 const MAX_UPSTREAM_BODY_BYTES = 2 * 1024 * 1024;
+const RELEASE_CACHE_TTL_SECONDS = 60 * 60;
+const COMMIT_EDGE_CACHE_TTL_SECONDS = 60;
 
 const JSON_HEADERS = Object.freeze({
   "Content-Type": "application/json; charset=utf-8",
@@ -222,13 +224,21 @@ export async function onRequest({ request, params }) {
     const body = await readBoundedBody(upstreamResponse, MAX_UPSTREAM_BODY_BYTES);
     const responseHeaders = {
       ...JSON_HEADERS,
-      "Cache-Control": upstreamResponse.ok ? "public, max-age=0, must-revalidate" : "no-store",
+      "Cache-Control": "no-store",
     };
 
-    // Explicitly cache only successful public API results at Cloudflare's edge.
-    // Browser caches must revalidate; error responses are never shared-cached.
-    if (upstreamResponse.ok) {
-      responseHeaders["Cloudflare-CDN-Cache-Control"] = "public, max-age=60";
+    // Release responses contain public release metadata and direct GitHub asset
+    // URLs. Let browsers reuse the same API response for one hour, so a normal
+    // page reload does not issue another request while the entry is fresh.
+    // The binary ZIP files are not proxied or cached here: Download links still
+    // point directly to github.com. Keep commit responses revalidating in the
+    // browser and retain the shorter edge TTL for commits.
+    if (upstreamResponse.status === 200 && endpoint === "releases") {
+      responseHeaders["Cache-Control"] = `public, max-age=${RELEASE_CACHE_TTL_SECONDS}`;
+      responseHeaders["Cloudflare-CDN-Cache-Control"] = `public, max-age=${RELEASE_CACHE_TTL_SECONDS}`;
+    } else if (upstreamResponse.status === 200 && endpoint === "commits") {
+      responseHeaders["Cache-Control"] = "public, max-age=0, must-revalidate";
+      responseHeaders["Cloudflare-CDN-Cache-Control"] = `public, max-age=${COMMIT_EDGE_CACHE_TTL_SECONDS}`;
     }
 
     for (const headerName of ["x-ratelimit-remaining", "x-ratelimit-reset", "retry-after"]) {
