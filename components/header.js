@@ -32,7 +32,7 @@ class MyHeader extends HTMLElement {
         const className = isActive ? `${baseClasses} ${activeClasses}` : `${baseClasses} ${inactiveClasses}`;
 
         return `
-          <a href="${item.link}" ${item.target ? `target="${item.target}"` : ''} class="${className}">
+          <a href="${item.link}" ${item.target ? `target="${item.target}" rel="noopener noreferrer"` : ''} class="${className}">
              <span class="relative z-10">${item.name}</span>
           </a>
         `;
@@ -53,7 +53,7 @@ class MyHeader extends HTMLElement {
           : `<svg class="w-4 h-4 text-slate-300 dark:text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>`;
 
         return `
-          <a href="${item.link}" ${item.target ? `target="${item.target}"` : ''} class="${className}">
+          <a href="${item.link}" ${item.target ? `target="${item.target}" rel="noopener noreferrer"` : ''} class="${className}">
              <span>${item.name}</span>
              ${arrowIcon}
           </a>

@@ -14,6 +14,8 @@
     },
   ];
 
+  const ALLOWED_SOURCES = new Set(SOURCES.map(({ owner, repo }) => `${owner}/${repo}`.toLowerCase()));
+
   const DEVICE_MAP = {
     "yogi": "Pixel 11 Pro Fold",
     "kodiak": "Pixel 11 Pro XL",
@@ -60,14 +62,11 @@
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) =>
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
-  const attrEscape = (s) => esc(s);
-
-  // Remove the legacy browser-stored credential from older versions of the site.
-  // The public release viewer no longer uses personal access tokens in the browser.
+  // Clear the token key used by the legacy browser implementation.
   try {
     window.localStorage.removeItem("GH_TOKEN");
   } catch {
-    // Storage may be unavailable in privacy-restricted browser contexts.
+    // Storage can be disabled by browser privacy settings.
   }
 
   const safeReleaseAssetUrl = (value, owner, repo) => {
@@ -87,11 +86,7 @@
   };
 
   async function fetchRecentReleases(owner, repo, count = 2) {
-    const allowedSources = new Set([
-      "pixel-props/build.prop",
-      "elcapitanoe/build-prop-beta",
-    ]);
-    if (!allowedSources.has(`${owner}/${repo}`.toLowerCase())) {
+    if (!ALLOWED_SOURCES.has(`${owner}/${repo}`.toLowerCase())) {
       throw new Error("Release source is not allowlisted");
     }
 
@@ -170,7 +165,7 @@
         const { codename, marketName } = detectDevice(assetName);
         const key = codename.toLowerCase();
 
-        // Keep newer build if device appears in multiple releases
+        // Releases are newest-first, so the first asset for a device wins.
         if (!deviceMap.has(key)) {
           deviceMap.set(key, {
             asset: safeAsset,
@@ -266,8 +261,8 @@
               <div class="flex items-center gap-2 pt-4 border-t border-slate-200/60 dark:border-white/10 mt-auto">
                 <a href="${dlUrl}" class="flex-1 text-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition shadow-lg shadow-blue-500/20 active:scale-95" target="_blank" rel="noopener noreferrer">Download</a>
                 <button type="button" class="px-3 py-2 bg-white dark:bg-white/5 hover:bg-slate-50 dark:hover:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-white/10 text-xs font-mono font-medium rounded-lg transition show-checksum-btn active:scale-95" 
-                  data-filename="${attrEscape(fileNameRaw)}" 
-                  data-checksum="${attrEscape(checksum)}">SHA-256</button>
+                  data-filename="${esc(fileNameRaw)}" 
+                  data-checksum="${esc(checksum)}">SHA-256</button>
               </div>
             </div>`;
           }).join("") + '</div>';

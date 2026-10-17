@@ -1,9 +1,11 @@
 import { defineConfig } from "vite";
-import { resolve } from "path";
+import { resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const rootDir = fileURLToPath(new URL(".", import.meta.url));
 
 export default defineConfig({
   appType: "mpa",
-
   build: {
     outDir: "dist",
     assetsDir: "assets",
@@ -11,19 +13,15 @@ export default defineConfig({
     minify: "esbuild",
     rollupOptions: {
       input: {
-        main: resolve(__dirname, "index.html"),
-        about: resolve(__dirname, "about/index.html"),
-        disclaimer: resolve(__dirname, "disclaimer/index.html"),
-        downloads: resolve(__dirname, "downloads/index.html"),
-        guides: resolve(__dirname, "guides/index.html"),
-        changelogs: resolve(__dirname, "changelogs/index.html"),
-      },
-      output: {
-        manualChunks: undefined,
+        main: resolve(rootDir, "index.html"),
+        about: resolve(rootDir, "about/index.html"),
+        disclaimer: resolve(rootDir, "disclaimer/index.html"),
+        downloads: resolve(rootDir, "downloads/index.html"),
+        guides: resolve(rootDir, "guides/index.html"),
+        changelogs: resolve(rootDir, "changelogs/index.html"),
       },
     },
   },
-
   server: {
     port: 3000,
     open: true,

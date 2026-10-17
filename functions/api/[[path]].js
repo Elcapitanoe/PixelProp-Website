@@ -157,8 +157,7 @@ export async function onRequest({ request, params }) {
     return jsonError(400, "Invalid sha value");
   }
 
-  // Construct the upstream URL only from allowlisted values. Never proxy an
-  // arbitrary GitHub path or forward browser-supplied headers/credentials.
+  // Only allowlisted repository and endpoint values reach GitHub.
   const upstreamUrl = new URL(
     `https://api.github.com/repos/${encodeURIComponent(repository.owner)}/${encodeURIComponent(repository.repo)}/${endpoint}`,
   );
@@ -174,9 +173,7 @@ export async function onRequest({ request, params }) {
   try {
     const upstreamResponse = await fetch(upstreamUrl, {
       method: "GET",
-      // GitHub may redirect API requests to a canonical repository path.
-      // Follow redirects, then verify that the final URL is still the exact
-      // allowlisted API resource before returning any data to the browser.
+      // Accept canonical redirects only when the final API URL is unchanged in scope.
       redirect: "follow",
       signal: controller.signal,
       headers: {
@@ -227,12 +224,8 @@ export async function onRequest({ request, params }) {
       "Cache-Control": "no-store",
     };
 
-    // Release responses contain public release metadata and direct GitHub asset
-    // URLs. Let browsers reuse the same API response for one hour, so a normal
-    // page reload does not issue another request while the entry is fresh.
-    // The binary ZIP files are not proxied or cached here: Download links still
-    // point directly to github.com. Keep commit responses revalidating in the
-    // browser and retain the shorter edge TTL for commits.
+    // Cache public release metadata for one hour. ZIPs remain direct GitHub
+    // downloads; commit responses revalidate in browsers and use a short edge TTL.
     if (upstreamResponse.status === 200 && endpoint === "releases") {
       responseHeaders["Cache-Control"] = `public, max-age=${RELEASE_CACHE_TTL_SECONDS}`;
       responseHeaders["Cloudflare-CDN-Cache-Control"] = `public, max-age=${RELEASE_CACHE_TTL_SECONDS}`;
@@ -256,8 +249,7 @@ export async function onRequest({ request, params }) {
     }
 
     const timedOut = error?.name === "AbortError";
-    // Keep client errors generic, but retain a bounded diagnostic in the
-    // Cloudflare function logs so upstream fetch failures are actionable.
+    // Return a generic error while keeping diagnostics bounded in function logs.
     console.error("[PixelProp API] Upstream request failed", {
       name: typeof error?.name === "string" ? error.name.slice(0, 80) : "Error",
       message: typeof error?.message === "string" ? error.message.slice(0, 200) : "Unknown error",
