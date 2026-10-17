@@ -7,8 +7,6 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
   group: pages
@@ -17,29 +15,48 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: "22"
           cache: "npm"
-      - run: npm ci
-      - run: npm run build
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-      - name: Set CNAME
+      - name: Install Dependencies
+        run: npm ci
+      - name: Build CSS
+        run: npm run build
+      - name: Prepare public-only Pages artifact
+        shell: bash
         run: |
-          echo "prop.domiadi.com" > CNAME
-      - uses: actions/upload-pages-artifact@v3
+          set -euo pipefail
+          rm -rf _site
+          mkdir -p _site
+
+          # Explicit allowlist: publish only files needed by the static website.
+          # Keep tests, source configuration, package metadata, and server functions
+          # out of the public GitHub Pages artifact.
+          cp index.html style.css script.js _site/
+          cp -R about changelogs components disclaimer downloads guides src _site/
+          printf '%s\n' 'prop.domiadi.com' > _site/CNAME
+      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
         with:
-          path: "."
+          path: _site
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+      contents: read
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5

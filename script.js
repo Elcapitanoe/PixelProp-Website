@@ -60,28 +60,66 @@
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) =>
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
-  const attrEscape = (s) => String(s ?? "").replace(/"/g, "&quot;");
+  const attrEscape = (s) => esc(s);
+
+  // Remove the legacy browser-stored credential from older versions of the site.
+  // The public release viewer no longer uses personal access tokens in the browser.
+  try {
+    window.localStorage.removeItem("GH_TOKEN");
+  } catch {
+    // Storage may be unavailable in privacy-restricted browser contexts.
+  }
+
+  const safeReleaseAssetUrl = (value, owner, repo) => {
+    try {
+      const url = new URL(value);
+      const expectedPrefix = `/${owner}/${repo}/releases/download/`.toLowerCase();
+      const pathSegments = url.pathname.split("/").filter(Boolean);
+      if (url.origin !== "https://github.com" || url.username || url.password ||
+          url.search || url.hash || !url.pathname.toLowerCase().startsWith(expectedPrefix) ||
+          pathSegments.length !== 6) {
+        return null;
+      }
+      return url.href;
+    } catch {
+      return null;
+    }
+  };
 
   async function fetchRecentReleases(owner, repo, count = 2) {
-    const headers = { "Accept": "application/vnd.github+json" };
-    const token = localStorage.getItem("GH_TOKEN");
-    if (token) {
-      headers["Authorization"] = `Bearer ${token}`;
+    const allowedSources = new Set([
+      "pixel-props/build.prop",
+      "elcapitanoe/build-prop-beta",
+    ]);
+    if (!allowedSources.has(`${owner}/${repo}`.toLowerCase())) {
+      throw new Error("Release source is not allowlisted");
     }
 
-    const res = await fetch("/api/repos/" + owner + "/" + repo + "/releases?per_page=" + count, {
-      headers
+    const safeCount = Number.isInteger(count) ? Math.min(Math.max(count, 1), 5) : 2;
+    const url = `/api/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/releases?per_page=${safeCount}`;
+    const res = await fetch(url, {
+      method: "GET",
+      credentials: "omit",
+      redirect: "error",
+      headers: { "Accept": "application/json" },
     });
     if (!res.ok) {
       if (res.status === 404) return [];
       throw new Error(`API Error ${res.status}`);
     }
-    return res.json();
+    const data = await res.json();
+    if (!Array.isArray(data) || data.length > safeCount) {
+      throw new Error("Invalid release API response");
+    }
+    return data;
   }
 
   function getChecksum(asset, body) {
-    if (asset.digest) {
-      return asset.digest.replace(/^sha256:/, "");
+    const validSha256 = (value) => /^[a-fA-F0-9]{64}$/.test(value);
+
+    if (typeof asset.digest === "string") {
+      const digest = asset.digest.replace(/^sha256:/i, "").trim();
+      if (validSha256(digest)) return digest.toLowerCase();
     }
 
     if (body) {
@@ -90,7 +128,7 @@
       const targetLine = lines.find(line => line.includes(asset.name) && sha256Regex.test(line));
       if (targetLine) {
         const match = targetLine.match(sha256Regex);
-        if (match) return match[0];
+        if (match) return match[0].toLowerCase();
       }
     }
 
@@ -111,25 +149,35 @@
   function mergeReleases(releases) {
     if (!releases || !releases.length) return null;
 
-    const latestRelease = releases[0];
     const deviceMap = new Map();
 
     releases.forEach((rel, index) => {
+      if (!rel || typeof rel !== "object" || Array.isArray(rel)) return;
+
       const isLatest = index === 0;
-      const assets = rel.assets || [];
+      const assets = Array.isArray(rel.assets) ? rel.assets : [];
 
       assets.forEach((asset) => {
-        const { codename, marketName } = detectDevice(asset.name || "");
+        if (!asset || typeof asset !== "object" || Array.isArray(asset)) return;
+
+        const assetName = typeof asset.name === "string" ? asset.name : "";
+        if (!assetName || assetName.length > 512) return;
+
+        const downloadCount = Number.isSafeInteger(asset.download_count) && asset.download_count >= 0
+          ? asset.download_count
+          : 0;
+        const safeAsset = { ...asset, name: assetName, download_count: downloadCount };
+        const { codename, marketName } = detectDevice(assetName);
         const key = codename.toLowerCase();
 
         // Keep newer build if device appears in multiple releases
         if (!deviceMap.has(key)) {
           deviceMap.set(key, {
-            asset,
+            asset: safeAsset,
             release: rel,
             isLatest,
             marketName,
-            checksum: getChecksum(asset, rel.body)
+            checksum: getChecksum(safeAsset, typeof rel.body === "string" ? rel.body : "")
           });
         }
       });
@@ -146,12 +194,15 @@
     });
 
     const totalDownloads = releases.reduce((sum, rel) => {
-      const assets = rel.assets || [];
-      return sum + assets.reduce((s, a) => s + (a.download_count || 0), 0);
+      const assets = Array.isArray(rel?.assets) ? rel.assets : [];
+      return assets.reduce((runningTotal, asset) => {
+        const count = asset?.download_count;
+        if (!Number.isSafeInteger(count) || count < 0) return runningTotal;
+        return Math.min(Number.MAX_SAFE_INTEGER, runningTotal + count);
+      }, sum);
     }, 0);
 
     return {
-      latestRelease,
       mergedAssets,
       totalDownloads
     };
@@ -162,7 +213,7 @@
       return `<div class="p-6 bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 rounded-xl text-center border border-red-100 dark:border-red-500/20 text-sm">No releases found.</div>`;
     }
 
-    return dataList.map(({ label, releases, type }) => {
+    return dataList.map(({ label, releases, type, owner, repo }) => {
       const merged = mergeReleases(releases);
       if (!merged) return "";
 
@@ -175,8 +226,12 @@
           mergedAssets.map(({ asset, release, isLatest, marketName, checksum }) => {
             const fileNameRaw = asset.name || "";
             const fileName = esc(fileNameRaw);
-            const dlUrl = esc(asset.browser_download_url);
-            const dlCount = asset.download_count || 0;
+            const safeDownloadUrl = safeReleaseAssetUrl(asset.browser_download_url, owner, repo);
+            if (!safeDownloadUrl) return "";
+            const dlUrl = esc(safeDownloadUrl);
+            const dlCount = Number.isSafeInteger(asset.download_count) && asset.download_count >= 0
+              ? asset.download_count
+              : 0;
             const releaseTag = esc(release.tag_name);
 
             const statusBadge = isLatest
@@ -209,9 +264,9 @@
                 </div>
               </div>
               <div class="flex items-center gap-2 pt-4 border-t border-slate-200/60 dark:border-white/10 mt-auto">
-                <a href="${dlUrl}" class="flex-1 text-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition shadow-lg shadow-blue-500/20 active:scale-95" target="_blank">Download</a>
+                <a href="${dlUrl}" class="flex-1 text-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition shadow-lg shadow-blue-500/20 active:scale-95" target="_blank" rel="noopener noreferrer">Download</a>
                 <button type="button" class="px-3 py-2 bg-white dark:bg-white/5 hover:bg-slate-50 dark:hover:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-white/10 text-xs font-mono font-medium rounded-lg transition show-checksum-btn active:scale-95" 
-                  data-filename="${attrEscape(fileName)}" 
+                  data-filename="${attrEscape(fileNameRaw)}" 
                   data-checksum="${attrEscape(checksum)}">SHA-256</button>
               </div>
             </div>`;
@@ -272,6 +327,8 @@
       resetVerifier();
     };
 
+    const MAX_VERIFICATION_FILE_SIZE = 128 * 1024 * 1024; // 128 MiB; SubtleCrypto requires the whole file in memory.
+
     const computeSHA256 = async (file) => {
       const buffer = await file.arrayBuffer();
       const hashBuffer = await crypto.subtle.digest("SHA-256", buffer);
@@ -281,8 +338,33 @@
 
     const handleFileVerification = async (file) => {
       if (!file || !elements.result) return;
-      
-      elements.promptText.innerHTML = `Scanning: <span class="font-mono text-slate-900 dark:text-white">${file.name}</span>`;
+
+      if (!file.name.toLowerCase().endsWith(".zip")) {
+        elements.result.className = "mt-2 p-3 rounded-xl border border-rose-200 dark:border-rose-500/20 bg-rose-50 dark:bg-rose-500/10 text-xs font-mono text-rose-700 dark:text-rose-400";
+        elements.result.textContent = "Please select a .zip file.";
+        elements.result.classList.remove("hidden");
+        return;
+      }
+
+      if (file.size > MAX_VERIFICATION_FILE_SIZE) {
+        elements.result.className = "mt-2 p-3 rounded-xl border border-rose-200 dark:border-rose-500/20 bg-rose-50 dark:bg-rose-500/10 text-xs font-mono text-rose-700 dark:text-rose-400";
+        elements.result.textContent = "File exceeds the 128 MiB verification limit.";
+        elements.result.classList.remove("hidden");
+        return;
+      }
+
+      if (!/^[a-f0-9]{64}$/i.test(targetChecksum)) {
+        elements.result.className = "mt-2 p-3 rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50 dark:bg-amber-500/10 text-xs font-mono text-amber-800 dark:text-amber-300";
+        elements.result.textContent = "A valid published SHA-256 checksum is not available for this file.";
+        elements.result.classList.remove("hidden");
+        return;
+      }
+
+      elements.promptText.replaceChildren(document.createTextNode("Scanning: "));
+      const fileNameLabel = document.createElement("span");
+      fileNameLabel.className = "font-mono text-slate-900 dark:text-white";
+      fileNameLabel.textContent = file.name;
+      elements.promptText.appendChild(fileNameLabel);
       elements.result.className = "mt-2 p-3 rounded-xl border border-blue-200 dark:border-blue-500/20 bg-blue-50/50 dark:bg-blue-500/10 text-xs font-mono text-blue-700 dark:text-blue-400";
       elements.result.textContent = "Computing SHA-256 hash...";
       elements.result.classList.remove("hidden");
@@ -296,7 +378,7 @@
           elements.result.innerHTML = `
             <div class="flex items-center gap-1.5 font-bold text-emerald-600 dark:text-emerald-400">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-              Verified Authentic
+              Checksum Match
             </div>
             <div class="text-[11px] text-emerald-700 dark:text-emerald-400/90 break-all select-all">${computedHash}</div>
           `;
